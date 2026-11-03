@@ -1,0 +1,569 @@
+---
+// Robot3D.astro - True 3D Interactive WebGL Mascot Robot with Three.js
+---
+
+<div class="robot-3d-wrapper" id="robot3dWrapper" aria-label="3D Interactive Robot Mascot">
+  <canvas id="robot3dCanvas" class="robot-3d-canvas"></canvas>
+  
+  <!-- Interactive Speech Bubble attached to 3D Robot -->
+  <div class="robot-speech-bubble" id="robotSpeechBubble" title="Click to cycle voice lines!">
+    <span class="speech-sparkle">✦</span>
+    <span id="speechText">Hey! I'm Spark. Look around in 3D!</span>
+  </div>
+
+  <!-- Fallback image if WebGL is unavailable -->
+  <noscript>
+    <img src="/robot.png" alt="SIS 3D Robot Mascot" class="robot-mascot-img" />
+  </noscript>
+</div>
+
+<style>
+  .robot-3d-wrapper {
+    position: relative;
+    width: 380px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .robot-3d-canvas {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    cursor: grab;
+  }
+
+  .robot-3d-canvas:active {
+    cursor: grabbing;
+  }
+
+  .robot-speech-bubble {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 15;
+    white-space: nowrap;
+    animation: bubble-float 3.5s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .robot-speech-bubble:hover {
+    transform: translateX(-50%) translateY(-3px) scale(1.02);
+    border-color: var(--red);
+    box-shadow: 0 10px 24px var(--red-soft);
+  }
+
+  .robot-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: var(--surface);
+    border-right: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .speech-sparkle {
+    color: var(--red);
+    font-size: 14px;
+  }
+
+  @media (max-width: 640px) {
+    .robot-3d-wrapper {
+      width: 310px;
+      height: 400px;
+    }
+    .robot-speech-bubble {
+      font-size: 11px;
+      padding: 8px 12px;
+      top: 5px;
+    }
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  const canvas = document.getElementById('robot3dCanvas') as HTMLCanvasElement;
+  const wrapper = document.getElementById('robot3dWrapper');
+  const speechText = document.getElementById('speechText');
+
+  if (canvas && wrapper) {
+    // 1. Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+
+    const width = wrapper.clientWidth || 380;
+    const height = wrapper.clientHeight || 480;
+
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.set(0, 0.2, 5.2);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+
+    // 2. Materials
+    const whiteArmorMat = new THREE.MeshStandardMaterial({
+      color: 0xfdfdfd,
+      roughness: 0.18,
+      metalness: 0.12,
+    });
+
+    const darkJointMat = new THREE.MeshStandardMaterial({
+      color: 0x181a1d,
+      roughness: 0.35,
+      metalness: 0.75,
+    });
+
+    const visorMat = new THREE.MeshStandardMaterial({
+      color: 0x07090d,
+      roughness: 0.08,
+      metalness: 0.92,
+    });
+
+    const redEmissiveMat = new THREE.MeshStandardMaterial({
+      color: 0xff2222,
+      emissive: 0xff1111,
+      emissiveIntensity: 2.8,
+      roughness: 0.2,
+      metalness: 0.1,
+    });
+
+    const redRingMat = new THREE.MeshBasicMaterial({
+      color: 0xff3333,
+      transparent: true,
+      opacity: 0.85,
+    });
+
+    // 3. Dynamic Animated Eye Texture (Canvas)
+    const eyeCanvas = document.createElement('canvas');
+    eyeCanvas.width = 512;
+    eyeCanvas.height = 256;
+    const eyeCtx = eyeCanvas.getContext('2d')!;
+
+    let eyeState = { blink: 0, smile: 1, lookX: 0, lookY: 0 };
+
+    function drawEyes() {
+      eyeCtx.clearRect(0, 0, 512, 256);
+
+      // Digital visor scanline grid background
+      eyeCtx.fillStyle = '#060a10';
+      eyeCtx.fillRect(0, 0, 512, 256);
+
+      // Eye positions
+      const eyeL = 170 + eyeState.lookX * 30;
+      const eyeR = 342 + eyeState.lookX * 30;
+      const eyeY = 128 + eyeState.lookY * 20;
+
+      const eyeHeight = Math.max(2, 60 * (1 - eyeState.blink));
+      const eyeWidth = 44;
+
+      eyeCtx.strokeStyle = '#38bdf8';
+      eyeCtx.fillStyle = '#38bdf8';
+      eyeCtx.shadowColor = '#00f0ff';
+      eyeCtx.shadowBlur = 18;
+      eyeCtx.lineWidth = 14;
+      eyeCtx.lineCap = 'round';
+
+      // Left Eye
+      if (eyeState.blink > 0.85) {
+        eyeCtx.beginPath();
+        eyeCtx.moveTo(eyeL - 25, eyeY);
+        eyeCtx.lineTo(eyeL + 25, eyeY);
+        eyeCtx.stroke();
+      } else {
+        // Cute curved digital oval
+        eyeCtx.beginPath();
+        eyeCtx.ellipse(eyeL, eyeY, eyeWidth, eyeHeight, 0, 0, Math.PI * 2);
+        eyeCtx.fill();
+        // Inner pupil highlight
+        eyeCtx.fillStyle = '#ffffff';
+        eyeCtx.beginPath();
+        eyeCtx.ellipse(eyeL - 8, eyeY - 10, 10, 14, 0, 0, Math.PI * 2);
+        eyeCtx.fill();
+      }
+
+      // Right Eye
+      eyeCtx.fillStyle = '#38bdf8';
+      if (eyeState.blink > 0.85) {
+        eyeCtx.beginPath();
+        eyeCtx.moveTo(eyeR - 25, eyeY);
+        eyeCtx.lineTo(eyeR + 25, eyeY);
+        eyeCtx.stroke();
+      } else {
+        eyeCtx.beginPath();
+        eyeCtx.ellipse(eyeR, eyeY, eyeWidth, eyeHeight, 0, 0, Math.PI * 2);
+        eyeCtx.fill();
+        eyeCtx.fillStyle = '#ffffff';
+        eyeCtx.beginPath();
+        eyeCtx.ellipse(eyeR - 8, eyeY - 10, 10, 14, 0, 0, Math.PI * 2);
+        eyeCtx.fill();
+      }
+
+      // Cute digital smile below eyes
+      eyeCtx.strokeStyle = '#38bdf8';
+      eyeCtx.lineWidth = 9;
+      eyeCtx.beginPath();
+      eyeCtx.arc(256 + eyeState.lookX * 20, 185 + eyeState.lookY * 10, 24, 0.2 * Math.PI, 0.8 * Math.PI, false);
+      eyeCtx.stroke();
+    }
+
+    drawEyes();
+    const eyeTexture = new THREE.CanvasTexture(eyeCanvas);
+    const eyeMat = new THREE.MeshBasicMaterial({
+      map: eyeTexture,
+      transparent: true,
+      opacity: 0.98,
+    });
+
+    // 4. Construct Robot Hierarchy
+    const robotRoot = new THREE.Group();
+    scene.add(robotRoot);
+
+    // HEAD GROUP
+    const headGroup = new THREE.Group();
+    headGroup.position.set(0, 0.72, 0);
+    robotRoot.add(headGroup);
+
+    // Head Sphere
+    const headGeo = new THREE.SphereGeometry(0.85, 40, 40);
+    const headMesh = new THREE.Mesh(headGeo, whiteArmorMat);
+    headGroup.add(headMesh);
+
+    // Top Crest (Glowing Red)
+    const crestGeo = new THREE.BoxGeometry(0.18, 0.32, 0.55);
+    const crestMesh = new THREE.Mesh(crestGeo, redEmissiveMat);
+    crestMesh.position.set(0, 0.84, -0.05);
+    crestMesh.rotation.x = -0.25;
+    headGroup.add(crestMesh);
+
+    // Visor Shield (Dark curved front)
+    const visorGeo = new THREE.SphereGeometry(0.82, 32, 32, 0, Math.PI, 0.25 * Math.PI, 0.5 * Math.PI);
+    const visorMesh = new THREE.Mesh(visorGeo, visorMat);
+    visorMesh.rotation.y = -Math.PI / 2;
+    visorMesh.position.set(0, 0.04, 0.08);
+    visorMesh.scale.set(1.02, 0.92, 1.04);
+    headGroup.add(visorMesh);
+
+    // Visor Digital Eyes Screen
+    const eyeScreenGeo = new THREE.PlaneGeometry(0.95, 0.55);
+    const eyeScreenMesh = new THREE.Mesh(eyeScreenGeo, eyeMat);
+    eyeScreenMesh.position.set(0, 0.05, 0.87);
+    headGroup.add(eyeScreenMesh);
+
+    // Ears (Headphones / Audio sensors)
+    const earGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.14, 24);
+    earGeo.rotateZ(Math.PI / 2);
+    const earLeft = new THREE.Mesh(earGeo, darkJointMat);
+    earLeft.position.set(-0.84, 0.05, 0);
+    const earLeftRing = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.025, 16, 24), redEmissiveMat);
+    earLeftRing.rotation.y = Math.PI / 2;
+    earLeft.add(earLeftRing);
+    headGroup.add(earLeft);
+
+    const earRight = new THREE.Mesh(earGeo, darkJointMat);
+    earRight.position.set(0.84, 0.05, 0);
+    const earRightRing = earLeftRing.clone();
+    earRight.add(earRightRing);
+    headGroup.add(earRight);
+
+    // TORSO GROUP
+    const torsoGroup = new THREE.Group();
+    torsoGroup.position.set(0, -0.35, 0);
+    robotRoot.add(torsoGroup);
+
+    // Neck Ring
+    const neckGeo = new THREE.CylinderGeometry(0.3, 0.35, 0.22, 24);
+    const neckMesh = new THREE.Mesh(neckGeo, darkJointMat);
+    neckMesh.position.set(0, 0.28, 0);
+    torsoGroup.add(neckMesh);
+
+    // Chest Body (Sculpted white armor)
+    const chestGeo = new THREE.CylinderGeometry(0.68, 0.42, 0.85, 6);
+    const chestMesh = new THREE.Mesh(chestGeo, whiteArmorMat);
+    chestMesh.rotation.y = Math.PI / 6;
+    torsoGroup.add(chestMesh);
+
+    // Glowing Chest Emblem "M" (SIS core)
+    const chestCoreGeo = new THREE.BoxGeometry(0.34, 0.26, 0.1);
+    const chestCoreMesh = new THREE.Mesh(chestCoreGeo, redEmissiveMat);
+    chestCoreMesh.position.set(0, 0.05, 0.52);
+    torsoGroup.add(chestCoreMesh);
+
+    // ARMS & HANDS (Open welcoming gesture)
+    const armGeo = new THREE.BoxGeometry(0.18, 0.55, 0.18);
+    
+    // Left Arm
+    const armL = new THREE.Mesh(armGeo, whiteArmorMat);
+    armL.position.set(-0.82, 0.08, 0.1);
+    armL.rotation.z = 0.55;
+    armL.rotation.x = -0.35;
+    const handL = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.22, 0.12), darkJointMat);
+    handL.position.set(0, -0.32, 0);
+    armL.add(handL);
+    torsoGroup.add(armL);
+
+    // Right Arm
+    const armR = new THREE.Mesh(armGeo, whiteArmorMat);
+    armR.position.set(0.82, 0.08, 0.1);
+    armR.rotation.z = -0.55;
+    armR.rotation.x = -0.35;
+    const handR = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.22, 0.12), darkJointMat);
+    handR.position.set(0, -0.32, 0);
+    armR.add(handR);
+    torsoGroup.add(armR);
+
+    // REPULSOR ENERGY RINGS (Floating beneath the robot)
+    const repulsorGroup = new THREE.Group();
+    repulsorGroup.position.set(0, -1.05, 0);
+    robotRoot.add(repulsorGroup);
+
+    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(0.68, 0.035, 16, 48), redRingMat);
+    ring1.rotation.x = Math.PI / 2;
+    repulsorGroup.add(ring1);
+
+    const ring2 = new THREE.Mesh(new THREE.TorusGeometry(0.48, 0.03, 16, 48), redRingMat);
+    ring2.rotation.x = Math.PI / 2;
+    ring2.position.y = -0.16;
+    repulsorGroup.add(ring2);
+
+    const ring3 = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.025, 16, 48), redRingMat);
+    ring3.rotation.x = Math.PI / 2;
+    ring3.position.y = -0.32;
+    repulsorGroup.add(ring3);
+
+    // Swirling Thruster Particles
+    const particleCount = 45;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      particlePositions[i * 3] = (Math.random() - 0.5) * 0.8;
+      particlePositions[i * 3 + 1] = -0.2 - Math.random() * 0.5;
+      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 0.8;
+    }
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: 0xff3333,
+      size: 0.05,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending
+    });
+    const repulsorParticles = new THREE.Points(particleGeo, particleMat);
+    repulsorGroup.add(repulsorParticles);
+
+    // 5. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    keyLight.position.set(3, 4, 4);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xddeeff, 1.2);
+    fillLight.position.set(-3, 2, 2);
+    scene.add(fillLight);
+
+    const repulsorLight = new THREE.PointLight(0xff1111, 4.5, 5);
+    repulsorLight.position.set(0, -1.0, 0.5);
+    scene.add(repulsorLight);
+
+    const rimLight = new THREE.PointLight(0xff3333, 2.5, 6);
+    rimLight.position.set(0, 1.5, -2);
+    scene.add(rimLight);
+
+    // 6. Interactive Mouse Tracking & Drag Orbit
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let isDragging = false;
+    let dragStart = { x: 0, y: 0 };
+    let rotationVelocity = 0;
+    let userRotationY = 0;
+
+    window.addEventListener('pointermove', (e) => {
+      const rx = (e.clientX / window.innerWidth) * 2 - 1;
+      const ry = -(e.clientY / window.innerHeight) * 2 + 1;
+      mouse.targetX = rx;
+      mouse.targetY = ry;
+
+      if (isDragging) {
+        const deltaX = e.clientX - dragStart.x;
+        rotationVelocity = deltaX * 0.008;
+        userRotationY += rotationVelocity;
+        dragStart.x = e.clientX;
+      }
+    });
+
+    canvas.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      dragStart.x = e.clientX;
+      dragStart.y = e.clientY;
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDragging = false;
+    });
+
+    // Click reaction: Joyful 360 spin + celebratory quote
+    let spinProgress = 0;
+    let isSpinning = false;
+    const robotQuotes = [
+      "⚡ 3D Core Online! We build autonomous AI agents.",
+      "🚀 Saving 18+ hours a week for modern enterprise teams!",
+      "🎯 Look around: all pipelines below run automatically!",
+      "💡 Calculating ROI: check out the live calculator down below!",
+      "💬 Click 'Ask Spark' at the bottom right to chat with me anytime!"
+    ];
+    let quoteIdx = 0;
+
+    function triggerSpin() {
+      if (isSpinning) return;
+      isSpinning = true;
+      spinProgress = 0;
+      quoteIdx = (quoteIdx + 1) % robotQuotes.length;
+      if (speechText) speechText.textContent = robotQuotes[quoteIdx];
+    }
+
+    canvas.addEventListener('click', (e) => {
+      // If was just a click (not a big drag)
+      if (Math.abs(e.clientX - dragStart.x) < 5) {
+        triggerSpin();
+      }
+    });
+
+    wrapper.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('.robot-speech-bubble')) {
+        triggerSpin();
+      }
+    });
+
+    // Auto-cycle speech every 6.5 seconds automatically!
+    setInterval(() => {
+      quoteIdx = (quoteIdx + 1) % robotQuotes.length;
+      if (speechText) speechText.textContent = robotQuotes[quoteIdx];
+    }, 6500);
+
+    // 7. Blink Loop (every 3.8s)
+    let blinkTimer = 0;
+    function updateBlink(delta: number) {
+      blinkTimer += delta;
+      if (blinkTimer > 3.8) {
+        eyeState.blink = 1;
+        drawEyes();
+        eyeTexture.needsUpdate = true;
+        setTimeout(() => {
+          eyeState.blink = 0;
+          drawEyes();
+          eyeTexture.needsUpdate = true;
+        }, 140);
+        blinkTimer = 0;
+      }
+    }
+
+    // 8. Animation Loop
+    let clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+
+      // Smooth mouse damping
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+      // Update digital eyes look-at
+      eyeState.lookX = mouse.x;
+      eyeState.lookY = -mouse.y;
+      drawEyes();
+      eyeTexture.needsUpdate = true;
+
+      updateBlink(delta);
+
+      // Inertial decay of user drag rotation
+      if (!isDragging) {
+        rotationVelocity *= 0.92;
+        userRotationY += rotationVelocity;
+        userRotationY *= 0.96; // Gently springs back towards center
+      }
+
+      // Celebratory spin handling
+      if (isSpinning) {
+        spinProgress += delta * 6;
+        robotRoot.rotation.y = userRotationY + spinProgress;
+        if (spinProgress >= Math.PI * 2) {
+          isSpinning = false;
+          robotRoot.rotation.y = userRotationY;
+        }
+      } else {
+        // Look towards mouse + drag rotation
+        robotRoot.rotation.y = userRotationY + mouse.x * 0.45;
+        robotRoot.rotation.x = -mouse.y * 0.25;
+      }
+
+      // Head has additional independent look-at articulation
+      headGroup.rotation.y = mouse.x * 0.25;
+      headGroup.rotation.x = -mouse.y * 0.2;
+
+      // Autonomous breathing/floating hovering harmonic motion
+      const floatY = Math.sin(time * 2.2) * 0.09;
+      robotRoot.position.y = floatY;
+
+      // Repulsor ring pulsing waves
+      ring1.scale.setScalar(1 + Math.sin(time * 4) * 0.06);
+      ring2.scale.setScalar(1 + Math.sin(time * 4 + 0.8) * 0.08);
+      ring3.scale.setScalar(1 + Math.sin(time * 4 + 1.6) * 0.1);
+
+      // Repulsor particle vortex
+      const positions = particleGeo.attributes.position.array as Float32Array;
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3 + 1] -= delta * 0.8;
+        if (positions[i * 3 + 1] < -0.8) {
+          positions[i * 3 + 1] = -0.15;
+          positions[i * 3] = (Math.random() - 0.5) * 0.6;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 0.6;
+        }
+      }
+      particleGeo.attributes.position.needsUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+      const w = wrapper.clientWidth || 380;
+      const h = wrapper.clientHeight || 480;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  }
+</script>
+

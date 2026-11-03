@@ -1,0 +1,1860 @@
+---
+import '../styles/global.css';
+
+const services = [
+  {
+    n: '01',
+    tag: 'Conversations',
+    title: 'AI Customer Support',
+    desc: 'Respond to customers across all your channels 24/7 with zero latency, brand alignment, and automated ticket resolution.',
+  },
+  {
+    n: '02',
+    tag: 'Operations',
+    title: 'Business Process Automation',
+    desc: 'Connect repetitive tasks, tools, and handoffs into self-running pipelines so your team can focus on high-impact work.',
+  },
+  {
+    n: '03',
+    tag: 'Intelligence',
+    title: 'AI Agents & Integrations',
+    desc: 'Custom autonomous assistants that connect with your databases, CRM, and APIs while strictly respecting your business logic.',
+  },
+];
+
+const processSteps = [
+  {
+    n: '01',
+    title: 'Discover',
+    icon: '⌕',
+    desc: 'We map out your current workflows, finding bottlenecks and repetitive manual overhead.',
+    caption: 'UNDERSTAND THE NEED',
+    tip: 'In this phase, we analyze where your team spends 10+ hours a week on repetitive tasks.',
+  },
+  {
+    n: '02',
+    title: 'Design',
+    icon: '⌘',
+    desc: 'We architect a lean, custom automation blueprint tailored to your tech stack and goals.',
+    caption: 'PLAN THE SYSTEM',
+    tip: 'We model the exact data flow, error handling, and API connections before writing any code.',
+  },
+  {
+    n: '03',
+    title: 'Build',
+    icon: '⚙',
+    desc: 'We implement intelligent AI agents, test edge cases, and integrate with your existing systems.',
+    caption: 'MAKE IT WORK',
+    tip: 'We stress-test prompt resilience, rate limits, and fallback paths for 99.9% reliability.',
+  },
+  {
+    n: '04',
+    title: 'Deploy',
+    icon: '↗',
+    desc: 'We launch into production with live telemetry, training your team and fine-tuning performance.',
+    caption: 'SCALE WITH CONFIDENCE',
+    tip: 'Continuous monitoring ensures response accuracy and seamless operational velocity.',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#D3D3D3" />
+    <meta name="description" content="SIS builds interactive AI agents and autonomous business automation systems that help modern teams work smarter and scale." />
+    <title>SIS — AI Agents & Autonomous Business Automation</title>
+    <link rel="icon" type="image/png" href="/robot-avatar.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Top Global Scroll Progress Bar -->
+    <div class="top-scroll-progress" id="topScrollProgress"></div>
+
+    <div class="site-shell">
+      <!-- NAVIGATION -->
+      <header class="nav-wrap">
+        <a class="brand" href="#top" aria-label="SIS Home">
+          <img src="/sis-logo.png" alt="SIS" class="brand-logo" />
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#what-we-do">What We Do</a>
+          <a href="#services">Services</a>
+          <a href="#journey">Journey</a>
+          <a href="#quote-section">AI Voice</a>
+          <a href="#calculator">ROI Calculator</a>
+          <a href="#process">Our Process</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Switch theme" title="Switch dark/light mode">
+            <span class="theme-icon">☾</span>
+          </button>
+          <a class="nav-cta" href="#contact">
+            Let's talk <span>↗</span>
+          </a>
+        </div>
+      </header>
+
+      <main id="top">
+        <!-- HERO SECTION -->
+        <section class="hero section-pad scroll-gradual">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span> AUTONOMOUS AGENTS · BUSINESS AUTOMATION
+            </div>
+            <h1>
+              Make work<br />
+              <span class="outline-word">move</span> <span class="red-word">smarter.</span>
+            </h1>
+            <p class="hero-lede">
+              We turn complex business processes into intelligent systems that help your team move faster, serve better, and grow with confidence.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#quote-section">
+                Hear from Spark <span>↘</span>
+              </a>
+              <a class="button button-secondary" href="#calculator">
+                Calculate savings <span>→</span>
+              </a>
+            </div>
+            <div class="hero-proof">
+              <span class="proof-line"></span>
+              <span>Tested on 10,000+ automated workflows. Designed for what's next.</span>
+            </div>
+          </div>
+
+          <!-- AUTHENTIC 3D ROBOT MASCOT HERO ART -->
+          <div class="hero-art" id="heroArt" aria-label="SIS Robot Mascot Stage">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="orbit orbit-three"></div>
+            <div class="hero-grid"></div>
+
+            <div class="floating-label label-top" id="systemStatusLabel" title="Click to cycle robot modes">
+              <span class="status-dot online"></span> <span id="systemStatusText">SYSTEM ONLINE · 100%</span>
+            </div>
+
+            <div class="robot-stage" id="robotStage" title="Click me to interact!">
+              <!-- Interactive Speech Bubble -->
+              <div class="robot-speech-bubble" id="robotSpeechBubble">
+                <span class="speech-sparkle">✦</span>
+                <span id="speechText">Hey! I'm Spark. Click me or hover around!</span>
+              </div>
+
+              <!-- Robot Image Container (Exact character from photo) -->
+              <div class="robot-image-wrap" id="robotImageWrap">
+                <img
+                  src="/robot.png"
+                  alt="SIS 3D Robot Mascot"
+                  class="robot-mascot-img"
+                  id="robotMascotImg"
+                />
+              </div>
+
+              <!-- Luminous Repulsor Rings -->
+              <div class="robot-repulsor" aria-hidden="true">
+                <div class="repulsor-ring ring-1"></div>
+                <div class="repulsor-ring ring-2"></div>
+                <div class="repulsor-ring ring-3"></div>
+              </div>
+            </div>
+
+            <div class="floating-label label-bottom" id="automationStatusLabel" title="Live automation status">
+              <span class="mini-bars"><i></i><i></i><i></i></span>
+              <span id="activityText">PIPELINE RUNNING · 24/7</span>
+            </div>
+          </div>
+
+          <a class="scroll-cue" href="#what-we-do">
+            <span class="scroll-wheel"></span> SCROLL TO EXPLORE
+          </a>
+        </section>
+
+        <!-- SECTION 01: WHAT WE DO & SELF-RUNNING WORKFLOW TRANSFORMER -->
+        <section class="intro section-pad section-pad-vert scroll-gradual" id="what-we-do">
+          <div class="section-kicker">
+            <span>01 / WHAT WE DO</span>
+            <span class="kicker-rule"></span>
+          </div>
+
+          <div class="intro-layout">
+            <h2>
+              Less busywork.<br />
+              <span class="muted-text">More</span> <span class="red-word">momentum.</span>
+            </h2>
+            <div class="intro-side">
+              <p>
+                Good automation doesn't add another complicated tool. It makes the tools and people you already have work seamlessly together.
+              </p>
+              <div class="robot-message">
+                <div class="tiny-robot-avatar">
+                  <img src="/robot-avatar.png" alt="Spark Avatar" />
+                </div>
+                <div>
+                  <strong>Live Autonomous Simulation:</strong><br />
+                  <span>Watch the workflow board below transform tasks automatically, or click any task to control it yourself!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INTERACTIVE TRANSFORMATION PLAYGROUND (AUTO-RUNNING) -->
+          <div class="transformation-board scroll-gradual stagger-1">
+            <div class="board-header">
+              <div class="board-title">
+                <span>⚡ Autonomous Workflow Transformer</span>
+                <span class="badge-live-auto" id="autoStatusIndicator" style="font-size: 10px; background: var(--red-soft); color: var(--red); padding: 4px 8px; border-radius: 12px; font-weight: 700;">● AUTO-STREAMING</span>
+              </div>
+              <div class="board-controls">
+                <button class="btn-pill" id="automateAllBtn">⚡ Automate All</button>
+                <button class="btn-pill" id="resetTasksBtn">↺ Reset Board</button>
+              </div>
+            </div>
+
+            <div class="transformation-grid">
+              <!-- Left: Chaotic Manual Tasks -->
+              <div class="board-pane" id="paneBefore">
+                <div class="pane-badge">
+                  <span>BEFORE SIS · MANUAL OVERHEAD</span>
+                  <span id="pendingCountBadge">5 Tasks Pending</span>
+                </div>
+                <div class="interactive-tasks-container" id="tasksContainer">
+                  <div class="interactive-task-chip" data-id="1">
+                    <span>📩 Customer Email Triage</span>
+                    <span class="chip-action">Automating...</span>
+                  </div>
+                  <div class="interactive-task-chip" data-id="2">
+                    <span>📊 Manual Spreadsheet Sync</span>
+                    <span class="chip-action">Automating...</span>
+                  </div>
+                  <div class="interactive-task-chip" data-id="3">
+                    <span>👤 CRM Lead Data Entry</span>
+                    <span class="chip-action">Automating...</span>
+                  </div>
+                  <div class="interactive-task-chip" data-id="4">
+                    <span>⏰ Follow-up Reminders</span>
+                    <span class="chip-action">Automating...</span>
+                  </div>
+                  <div class="interactive-task-chip" data-id="5">
+                    <span>🧾 Invoice & Receipt Matching</span>
+                    <span class="chip-action">Automating...</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle: Flow Arrow -->
+              <div class="board-middle">
+                <div class="pulse-arrow">→</div>
+                <small>SIS ENGINE</small>
+              </div>
+
+              <!-- Right: Automated Systems -->
+              <div class="board-pane" id="paneAfter">
+                <div class="pane-badge">
+                  <span>WITH SIS · AUTONOMOUS FLOW</span>
+                  <span id="automatedCountBadge" style="color: var(--green);">0 Active</span>
+                </div>
+                <div class="automated-tasks-container" id="automatedContainer">
+                  <!-- Transformed items appear here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 02: SERVICES WITH SELF-RUNNING LIVE DEMOS -->
+        <section class="services section-pad section-pad-vert scroll-gradual" id="services">
+          <div class="section-kicker">
+            <span>02 / WHAT WE BUILD</span>
+            <span class="kicker-rule"></span>
+          </div>
+
+          <div class="section-heading">
+            <h2>
+              Meet your new<br />
+              <span class="red-word">unfair advantage.</span>
+            </h2>
+            <p>
+              Interactive systems operating in continuous real-time preview. Watch each engine demonstrate its capabilities:
+            </p>
+          </div>
+
+          <div class="service-grid">
+            <!-- SERVICE 1: AI CUSTOMER SUPPORT CHAT DEMO (AUTO-LOOPING) -->
+            <article class="service-card scroll-gradual stagger-1">
+              <div class="card-top">
+                <span>01 / CONVERSATIONS</span>
+                <span class="card-arrow">↗</span>
+              </div>
+              <h3>AI Customer Support</h3>
+              <p>Resolve customer inquiries instantly with zero human waiting time and 99.8% resolution accuracy.</p>
+
+              <div class="interactive-chat-box">
+                <div class="chat-history" id="demoChatHistory">
+                  <div class="chat-msg msg-bot">
+                    <span>👋 Hello! How can I assist you right now?</span>
+                  </div>
+                </div>
+                <div class="chat-quick-chips">
+                  <button class="chip-btn" data-chat="Track my shipment #9102">📦 Track #9102</button>
+                  <button class="chip-btn" data-chat="How do I change plans?">⚡ Change plan</button>
+                  <button class="chip-btn" data-chat="Talk to a human">👤 Human rep</button>
+                </div>
+              </div>
+
+              <a href="#contact" class="text-link">Explore custom support bot <span>→</span></a>
+            </article>
+
+            <!-- SERVICE 2: BUSINESS PROCESS AUTOMATION SIMULATOR (CONTINUOUS STREAM) -->
+            <article class="service-card scroll-gradual stagger-2">
+              <div class="card-top">
+                <span>02 / OPERATIONS</span>
+                <span class="card-arrow">↗</span>
+              </div>
+              <h3>Process Automation</h3>
+              <p>Automate multi-step data pipelines across webhooks, CRMs, and internal team communication tools.</p>
+
+              <div class="interactive-pipeline-box">
+                <div class="pipeline-nodes-row" id="pipelineRow">
+                  <div class="p-node active" id="pn1">Trigger</div>
+                  <div class="p-connector" id="pc1"></div>
+                  <div class="p-node" id="pn2">AI Parse</div>
+                  <div class="p-connector" id="pc2"></div>
+                  <div class="p-node" id="pn3">CRM Sync</div>
+                  <div class="p-connector" id="pc3"></div>
+                  <div class="p-node" id="pn4">Slack Alert</div>
+                </div>
+                <div class="pipeline-log" id="pipelineLog">Status: Streaming live events</div>
+                <button class="pipeline-run-btn" id="runPipelineBtn">
+                  <span>▶</span> Force Re-trigger Event
+                </button>
+              </div>
+
+              <a href="#contact" class="text-link">Explore workflow systems <span>→</span></a>
+            </article>
+
+            <!-- SERVICE 3: AI AGENTS & INTEGRATION MATRIX (PULSING HEARTBEAT) -->
+            <article class="service-card scroll-gradual stagger-3">
+              <div class="card-top">
+                <span>03 / INTELLIGENCE</span>
+                <span class="card-arrow">↗</span>
+              </div>
+              <h3>AI Agents & Integrations</h3>
+              <p>Connect autonomous agent logic with your production databases, APIs, and business tooling.</p>
+
+              <div class="interactive-agent-box">
+                <div class="agent-hub" id="agentHub">
+                  <button class="integration-pill connected" data-tool="Slack"><span class="dot"></span> Slack</button>
+                  <button class="integration-pill connected" data-tool="Salesforce"><span class="dot"></span> Salesforce</button>
+                  <button class="integration-pill connected" data-tool="Notion"><span class="dot"></span> Notion</button>
+                  <button class="integration-pill connected" data-tool="Stripe"><span class="dot"></span> Stripe</button>
+                  <button class="integration-pill connected" data-tool="Postgres"><span class="dot"></span> PostgreSQL</button>
+                  <button class="integration-pill connected" data-tool="Hubspot"><span class="dot"></span> HubSpot</button>
+                </div>
+                <div class="agent-hub-stats">
+                  <span id="hubActiveCount">6 Systems Synchronized</span>
+                  <span style="color: var(--green);" id="hubEventsCount">● 2,840 events/min</span>
+                </div>
+              </div>
+
+              <a href="#contact" class="text-link">Explore custom integrations <span>→</span></a>
+            </article>
+          </div>
+        </section>
+
+        <!-- SECTION 03: SCROLL-DRIVEN AUTOMATION JOURNEY (ANIMATED WITH SCROLLING) -->
+        <section class="scroll-journey section-pad section-pad-vert scroll-gradual" id="journey">
+          <div class="section-kicker">
+            <span>03 / SCROLL-DRIVEN PIPELINE</span>
+            <span class="kicker-rule"></span>
+          </div>
+
+          <div class="section-heading">
+            <h2>
+              Watch work transform<br />
+              <span class="red-word">as you scroll down.</span>
+            </h2>
+            <p>
+              Scroll down through this interactive pipeline to watch incoming raw chaos get triaged, verified, and executed in milliseconds:
+            </p>
+          </div>
+
+          <div class="journey-container">
+            <!-- Left: 3 Scroll-Linked Milestones -->
+            <div class="journey-track-column" id="journeyTrackColumn">
+              <div class="journey-vertical-line">
+                <div class="journey-beam-fill" id="journeyBeamFill"></div>
+              </div>
+
+              <!-- Milestone 1 -->
+              <article class="journey-stage-card is-active-stage" id="jstage1">
+                <div class="journey-stage-node">01</div>
+                <div class="journey-card-header">
+                  <span>STAGE 01 · DATA INTAKE</span>
+                  <small>LATENCY: 14MS</small>
+                </div>
+                <h3>Raw Chaos → Instant Ingestion</h3>
+                <p>
+                  Incoming requests from customer emails, PDF invoices, webhook payloads, and spreadsheets are ingested instantly with zero human waiting queues.
+                </p>
+                <div class="journey-chip-row">
+                  <span class="journey-chip">📩 Customer Inquiries</span>
+                  <span class="journey-chip">🧾 Stripe Invoices</span>
+                  <span class="journey-chip">📊 Google Sheets</span>
+                  <span class="journey-chip">💬 Slack Webhooks</span>
+                </div>
+              </article>
+
+              <!-- Milestone 2 -->
+              <article class="journey-stage-card" id="jstage2">
+                <div class="journey-stage-node">02</div>
+                <div class="journey-card-header">
+                  <span>STAGE 02 · NEURAL LOGIC CORE</span>
+                  <small>ACCURACY: 99.8%</small>
+                </div>
+                <h3>AI Context & Decision Engine</h3>
+                <p>
+                  The SIS engine validates schemas, consults enterprise knowledge bases, checks authorization boundaries, and crafts the optimal execution path.
+                </p>
+                <div class="journey-chip-row">
+                  <span class="journey-chip">🧠 LLM Context Extraction</span>
+                  <span class="journey-chip">🛡️ Guardrail Verification</span>
+                  <span class="journey-chip">⚡ Business Logic Rules</span>
+                  <span class="journey-chip">🔍 Database Query</span>
+                </div>
+              </article>
+
+              <!-- Milestone 3 -->
+              <article class="journey-stage-card" id="jstage3">
+                <div class="journey-stage-node">03</div>
+                <div class="journey-card-header">
+                  <span>STAGE 03 · AUTONOMOUS DISPATCH</span>
+                  <small>STATUS: EXECUTED</small>
+                </div>
+                <h3>Full Execution → Hours Reclaimed</h3>
+                <p>
+                  The system synchronizes CRM records, releases invoices, sends personalized customer resolutions, and pings your internal team in one coordinated pulse.
+                </p>
+                <div class="journey-chip-row">
+                  <span class="journey-chip">✓ Salesforce Updated</span>
+                  <span class="journey-chip">✓ Invoice Reconciled</span>
+                  <span class="journey-chip">✓ Team Alert Dispatched</span>
+                  <span class="journey-chip">✓ 18 Hours Saved</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Right: Sticky Telemetry Speedometer Console -->
+            <div class="journey-telemetry-panel">
+              <div class="telemetry-dial-wrap">
+                <span class="telemetry-label">PIPELINE ADVANCEMENT</span>
+                <div class="telemetry-scroll-pct" id="telemetryPct">0%</div>
+                <span style="font-size: 11px; color: var(--muted);" id="telemetryStageName">Stage 01: Ingestion Active</span>
+              </div>
+
+              <div class="telemetry-row">
+                <span style="color: var(--muted);">Pipeline Throughput</span>
+                <strong id="telemetryThroughput">1,120 ops/sec</strong>
+              </div>
+              <div class="telemetry-row">
+                <span style="color: var(--muted);">Active Latency</span>
+                <strong style="color: var(--green);" id="telemetryLatency">18ms</strong>
+              </div>
+              <div class="telemetry-row">
+                <span style="color: var(--muted);">Human Error Rate</span>
+                <strong style="color: var(--green);">0.00% (Guarded)</strong>
+              </div>
+              <div class="telemetry-row">
+                <span style="color: var(--muted);">Reclaimed Time</span>
+                <strong style="color: var(--red);" id="telemetryHours">6 hrs / week</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 04: TALKING ROBOT QUOTE (SYNCHRONIZED MOUTH & SOUND) -->
+        <section class="quote-section section-pad section-pad-vert scroll-gradual" id="quote-section">
+          <div class="section-kicker">
+            <span>04 / AGENT PERSPECTIVE</span>
+            <span class="kicker-rule"></span>
+          </div>
+
+          <div class="section-heading">
+            <h2>
+              In the words of<br />
+              <span class="red-word">our AI architect.</span>
+            </h2>
+            <p>
+              Listen as Spark delivers key insights on how intelligent automation elevates modern enterprise teams:
+            </p>
+          </div>
+
+          <div class="quote-layout">
+            <!-- Left: Talking Robot with Mouth Overlay -->
+            <div class="quote-robot-stage scroll-gradual stagger-1">
+              <div class="talking-robot-wrap" id="talkingRobotWrap">
+                <div class="talking-robot-rig" id="talkingRobotRig">
+                  <img
+                    src="/robot.png"
+                    alt="Spark Robot Speaking"
+                    class="talking-robot-img"
+                    id="talkingRobotImg"
+                  />
+
+                  <!-- Synchronized Digital Mouth Overlay (aligned with visor smile) -->
+                  <div class="talking-mouth-overlay idle" id="talkingMouth">
+                    <div class="mouth-digital-shape"></div>
+                  </div>
+
+                  <!-- Radiating Soundwaves -->
+                  <div class="talking-soundwaves" id="talkingSoundwaves"></div>
+                </div>
+              </div>
+
+              <!-- Luminous Repulsor Rings -->
+              <div class="robot-repulsor" aria-hidden="true" style="bottom: 45px;">
+                <div class="repulsor-ring ring-1"></div>
+                <div class="repulsor-ring ring-2"></div>
+              </div>
+
+              <div class="quote-robot-badge" id="quoteStatusBadge">
+                <span class="status-dot online"></span>
+                <span id="quoteStatusText">DIRECTIVE SYNCHRONIZED · READY</span>
+              </div>
+            </div>
+
+            <!-- Right: Word-by-Word Synchronized Quote Card -->
+            <div class="quote-card scroll-gradual stagger-2">
+              <div class="quote-mark">“</div>
+              
+              <!-- Word-by-word streaming container -->
+              <div class="quote-words-container" id="quoteWordsContainer">
+                <!-- Dynamically populated and highlighted word by word in sync with mouth -->
+              </div>
+
+              <div class="quote-author-row">
+                <div class="quote-author-info">
+                  <strong>Spark · SIS AI Systems Architect</strong>
+                  <span id="quoteSubtext">SYSTEM BROADCAST · DIRECTIVE 01 OF 03</span>
+                </div>
+
+                <div class="quote-controls">
+                  <button class="btn-quote-control" id="btnReplayQuote" title="Replay current quote">
+                    <span>↺</span> Replay
+                  </button>
+                  <button class="btn-quote-control" id="btnNextQuote" title="Next wisdom directive">
+                    <span>⏭</span> Next
+                  </button>
+                  <button class="btn-quote-control sound-active" id="btnAudioToggle" title="Toggle audio sound">
+                    <span class="status-dot online" style="width:6px;height:6px;margin-right:2px;"></span>
+                    <span id="audioToggleText">Sound: ON</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 04: INTERACTIVE AUTOMATION ROI CALCULATOR -->
+        <section class="calculator-section section-pad section-pad-vert scroll-gradual" id="calculator">
+          <div class="section-kicker">
+            <span>04 / IMPACT ESTIMATOR</span>
+            <span class="kicker-rule"></span>
+          </div>
+
+          <div class="section-heading">
+            <h2>
+              Calculate your<br />
+              <span class="red-word">automation ROI.</span>
+            </h2>
+            <p>
+              Watch the interactive calculation in action or adjust the sliders to discover your team's specific savings:
+            </p>
+          </div>
+
+          <div class="calc-wrap">
+            <!-- Sliders Column -->
+            <div class="calc-sliders scroll-gradual stagger-1">
+              <div class="calc-group">
+                <div class="calc-label-row">
+                  <span>Team Size (Knowledge Workers)</span>
+                  <span class="calc-val" id="teamSizeVal">12 people</span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="12"
+                  class="calc-slider"
+                  id="teamSizeSlider"
+                />
+              </div>
+
+              <div class="calc-group">
+                <div class="calc-label-row">
+                  <span>Weekly Manual Hours per Person</span>
+                  <span class="calc-val" id="hoursVal">10 hrs/wk</span>
+                </div>
+                <input
+                  type="range"
+                  min="2"
+                  max="35"
+                  value="10"
+                  class="calc-slider"
+                  id="hoursSlider"
+                />
+              </div>
+
+              <div class="calc-group">
+                <div class="calc-label-row">
+                  <span>Average Hourly Rate ($/hr)</span>
+                  <span class="calc-val" id="rateVal">$45 / hr</span>
+                </div>
+                <input
+                  type="range"
+                  min="20"
+                  max="150"
+                  value="45"
+                  step="5"
+                  class="calc-slider"
+                  id="rateSlider"
+                />
+              </div>
+            </div>
+
+            <!-- Results Column -->
+            <div class="calc-results-card scroll-gradual stagger-2">
+              <div class="calc-stat-grid">
+                <div class="calc-stat-block">
+                  <span class="calc-stat-title">HOURS SAVED / YEAR</span>
+                  <span class="calc-stat-number" id="calcHoursSaved">4,320 hrs</span>
+                </div>
+                <div class="calc-stat-block">
+                  <span class="calc-stat-title">ANNUAL SAVINGS</span>
+                  <span class="calc-stat-number highlight" id="calcDollarSaved">$194,400</span>
+                </div>
+                <div class="calc-stat-block">
+                  <span class="calc-stat-title">EXECUTION SPEEDUP</span>
+                  <span class="calc-stat-number" id="calcSpeedup">8.5x</span>
+                </div>
+                <div class="calc-stat-block">
+                  <span class="calc-stat-title">ERROR REDUCTION</span>
+                  <span class="calc-stat-number" id="calcAccuracy">99.4%</span>
+                </div>
+              </div>
+
+              <div class="calc-robot-remark">
+                <img src="/robot-avatar.png" alt="Spark Remark" />
+                <div id="calcRemarkText">
+                  🚀 <strong>Spark:</strong> "That's 4,320 hours your team gets back every year for strategic projects!"
+                </div>
+              </div>
+
+              <a class="button button-primary" href="#contact" style="justify-content: center;">
+                Reclaim These Hours With SIS <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 05: PROCESS (AUTO-ADVANCING TOUR) -->
+        <section class="process section-pad section-pad-vert scroll-gradual" id="process">
+          <div class="section-kicker">
+            <span>05 / HOW WE WORK</span>
+            <span class="kicker-rule"></span>
+          </div>
+
+          <div class="section-heading">
+            <h2>
+              From bottleneck<br />
+              to <span class="red-word">breakthrough.</span>
+            </h2>
+            <p>
+              A transparent 4-stage implementation framework. The preview automatically steps through each milestone:
+            </p>
+          </div>
+
+          <div class="process-track" id="processTrack">
+            <div class="process-line">
+              <span class="process-progress" id="processProgressBar"></span>
+            </div>
+
+            {processSteps.map((step, idx) => (
+              <article
+                class={`process-step scroll-gradual stagger-${idx + 1} ${idx === 0 ? 'active-step' : ''}`}
+                data-step={idx}
+                data-tip={step.tip}
+              >
+                <span class="step-number">{step.n}</span>
+                <div class="step-icon">{step.icon}</div>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+                <span class="step-caption">{step.caption}</span>
+              </article>
+            ))}
+          </div>
+
+          <!-- Interactive Mascot Phase Guide -->
+          <div class="process-mascot-guide scroll-gradual stagger-2">
+            <div class="mascot-guide-avatar">
+              <img src="/robot-avatar.png" alt="Spark" />
+            </div>
+            <div class="mascot-guide-text" id="mascotGuideText">
+              <strong>Phase 01 Guidance:</strong> In this phase, we analyze where your team spends 10+ hours a week on repetitive tasks.
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 06: CONTACT / CONSULTATION -->
+        <section class="contact section-pad scroll-gradual" id="contact">
+          <div class="contact-panel">
+            <div class="contact-glow"></div>
+
+            <div class="contact-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot"></span> ARCHITECT YOUR SYSTEM
+              </div>
+              <h2>
+                Ready to make<br />
+                work <span class="red-word">smarter?</span>
+              </h2>
+              <p>
+                Tell us about your operational bottlenecks. Spark and our automation engineers will map a custom system blueprint for your company.
+              </p>
+
+              <!-- Interactive Consultation Form -->
+              <form class="contact-form" id="consultationForm">
+                <div class="form-tags">
+                  <button type="button" class="form-tag active" data-goal="Support Bot">AI Support</button>
+                  <button type="button" class="form-tag" data-goal="Operations">Workflow Pipelines</button>
+                  <button type="button" class="form-tag" data-goal="CRM Sync">CRM & Data Sync</button>
+                  <button type="button" class="form-tag" data-goal="Custom Agent">Custom AI Agent</button>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Your Name or Company"
+                  class="form-input"
+                  id="formName"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Your Work Email"
+                  class="form-input"
+                  id="formEmail"
+                  required
+                />
+                <button type="submit" class="button button-primary" id="formSubmitBtn">
+                  Request Automation Blueprint <span>↗</span>
+                </button>
+                <div id="formSuccessMsg" style="display: none; font-size: 13px; color: var(--green); font-weight: 700; margin-top: 6px;">
+                  ✓ Blueprint request sent! Spark and the team will reach out within 2 hours.
+                </div>
+              </form>
+            </div>
+
+            <!-- Mascot Side -->
+            <div class="contact-mascot-side">
+              <img
+                src="/robot.png"
+                alt="SIS Robot Waiting To Build"
+                class="contact-robot-img"
+              />
+              <div class="contact-robot-bubble">
+                Let's build something extraordinary <span>✦</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- COMPREHENSIVE FOOTER SECTION -->
+      <footer class="site-footer">
+        <div class="footer-main">
+          <div class="container footer-grid">
+            <!-- Brand Column -->
+            <div class="footer-col-brand">
+              <a class="brand" href="#top" aria-label="SIS Home">
+                <img src="/sis-logo.png" alt="SIS" class="brand-logo" />
+              </a>
+              <p class="footer-tagline">
+                Autonomous AI agents, enterprise automation pipelines, and continuous intelligence engineered to eliminate manual friction.
+              </p>
+              <div class="footer-status-pill">
+                <span class="status-indicator live"></span>
+                <span>ALL AUTONOMOUS SYSTEMS OPERATIONAL</span>
+              </div>
+              <div class="footer-socials">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">GitHub</a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter">Twitter / X</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Community">Community</a>
+              </div>
+            </div>
+
+            <!-- Capabilities / Solutions Column -->
+            <div class="footer-col">
+              <h4 class="footer-heading">Capabilities</h4>
+              <ul class="footer-links">
+                <li><a href="#services">Autonomous AI Agents</a></li>
+                <li><a href="#services">Workflow Orchestration</a></li>
+                <li><a href="#journey">Scroll Pipeline Engine</a></li>
+                <li><a href="#calculator">Enterprise ROI Calculator</a></li>
+                <li><a href="#quote-section">Continuous Intelligence</a></li>
+              </ul>
+            </div>
+
+            <!-- Navigation Column -->
+            <div class="footer-col">
+              <h4 class="footer-heading">Navigation</h4>
+              <ul class="footer-links">
+                <li><a href="#what-we-do">What We Do</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#journey">Automation Journey</a></li>
+                <li><a href="#quote-section">Manifesto</a></li>
+                <li><a href="#process">Deployment Roadmap</a></li>
+                <li><a href="#contact">Contact SIS</a></li>
+              </ul>
+            </div>
+
+            <!-- Newsletter / Dispatch Column -->
+            <div class="footer-col">
+              <h4 class="footer-heading">Automation Dispatch</h4>
+              <p class="footer-newsletter-desc">
+                Receive weekly blueprints, agent architectures, and autonomous system teardowns directly in your inbox.
+              </p>
+              <form class="footer-newsletter-form" id="footerNewsletterForm">
+                <input
+                  type="email"
+                  class="newsletter-input"
+                  id="newsletterEmail"
+                  placeholder="name@enterprise.com"
+                  required
+                />
+                <button type="submit" class="newsletter-submit-btn" id="newsletterSubmitBtn">
+                  <span>Subscribe to Dispatch</span>
+                  <span>→</span>
+                </button>
+              </form>
+              <p id="newsletterSuccess" style="display: none; font-size: 12px; color: var(--red); margin-top: 8px; font-weight: 600;">
+                ✓ Subscribed! Welcome to the Automation Dispatch.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-bottom">
+          <div class="container footer-bottom-inner">
+            <span>© <span id="year"></span> SIS Automation Agency. All rights reserved.</span>
+            <div class="footer-legal-links">
+              <a href="#top">Privacy Policy</a>
+              <a href="#top">Terms of Service</a>
+              <a href="#top">Security Guardrails</a>
+            </div>
+            <a href="#top" class="back-to-top-btn" aria-label="Back to top">
+              <span>Back to Top</span>
+              <span>↑</span>
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      <!-- FLOATING INTERACTIVE ROBOT COPILOT CHATBOT -->
+      <aside class="floating-copilot" id="floatingCopilot" aria-label="Spark AI Assistant">
+        <!-- Floating Chat Window (Hidden by default) -->
+        <div class="copilot-window hidden" id="copilotWindow">
+          <div class="copilot-header">
+            <div class="copilot-header-info">
+              <div class="copilot-avatar-circle" style="width: 32px; height: 32px;">
+                <img src="/robot-avatar.png" alt="Spark" />
+              </div>
+              <div>
+                <h4>Spark Copilot</h4>
+                <p>SIS Automation Assistant · Online</p>
+              </div>
+            </div>
+            <button class="copilot-close-btn" id="copilotCloseBtn" aria-label="Close chat">✕</button>
+          </div>
+
+          <div class="copilot-body" id="copilotMessages">
+            <div class="chat-msg msg-bot">
+              <span>👋 Hi! I'm Spark. Ask me anything about how SIS automates workflows, or pick a topic below:</span>
+            </div>
+            <div class="chat-quick-chips" style="margin-top: 4px;">
+              <button class="chip-btn copilot-chip" data-q="What tools can you integrate with?">🔗 Integrations</button>
+              <button class="chip-btn copilot-chip" data-q="How fast can we launch an agent?">⚡ Launch timeline</button>
+              <button class="chip-btn copilot-chip" data-q="How does pricing work?">💰 Pricing model</button>
+            </div>
+          </div>
+
+          <form class="copilot-footer" id="copilotForm">
+            <input
+              type="text"
+              placeholder="Ask Spark a question..."
+              class="copilot-input"
+              id="copilotInput"
+              autocomplete="off"
+            />
+            <button type="submit" class="copilot-send-btn" aria-label="Send message">↑</button>
+          </form>
+        </div>
+
+        <!-- Floating Launcher Pill -->
+        <button class="copilot-launcher" id="copilotLauncher" aria-label="Open AI Assistant">
+          <div class="copilot-avatar-circle">
+            <img src="/robot-avatar.png" alt="Spark Avatar" />
+          </div>
+          <div class="copilot-label">
+            <span class="copilot-badge"></span>
+            <span>Ask Spark</span>
+          </div>
+        </button>
+      </aside>
+    </div>
+
+    <!-- CLIENT INTERACTIVE, GRADUAL SCROLL & AUDIO SCRIPTS -->
+    <script>
+      // 1. THEME TOGGLE (LIGHT MODE USES #D3D3D3)
+      const root = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const storedTheme = localStorage.getItem('sis-theme');
+      const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      root.dataset.theme = storedTheme || (preferredDark ? 'dark' : 'light');
+
+      const updateToggle = () => {
+        if (!toggle) return;
+        const isDark = root.dataset.theme === 'dark';
+        toggle.querySelector('.theme-icon').textContent = isDark ? '☀' : '☾';
+        toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      };
+      updateToggle();
+
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('sis-theme', root.dataset.theme);
+          updateToggle();
+        });
+      }
+
+      // Year
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear().toString();
+
+      // 2. GRADUAL SCROLL ANIMATION & TOP PROGRESS BAR
+      const topScrollProgress = document.getElementById('topScrollProgress');
+      const gradualElements = document.querySelectorAll('.scroll-gradual');
+      const heroArt = document.getElementById('heroArt');
+      const talkingRobotWrap = document.getElementById('talkingRobotWrap');
+
+      const handleScrollGradual = () => {
+        const scrollY = window.scrollY;
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0;
+        if (topScrollProgress) {
+          topScrollProgress.style.width = `${progress}%`;
+        }
+
+        // Subtle gradual parallax on robots
+        if (heroArt && scrollY < window.innerHeight) {
+          heroArt.style.transform = `translateY(${scrollY * 0.08}px)`;
+        }
+      };
+
+      window.addEventListener('scroll', handleScrollGradual, { passive: true });
+      handleScrollGradual();
+
+      // 2.5 SCROLL-DRIVEN AUTOMATION JOURNEY PIPELINE ANIMATION
+      const journeySection = document.getElementById('journey');
+      const journeyBeamFill = document.getElementById('journeyBeamFill');
+      const telemetryPct = document.getElementById('telemetryPct');
+      const telemetryStageName = document.getElementById('telemetryStageName');
+      const telemetryThroughput = document.getElementById('telemetryThroughput');
+      const telemetryLatency = document.getElementById('telemetryLatency');
+      const telemetryHours = document.getElementById('telemetryHours');
+
+      const stageCards = [
+        document.getElementById('jstage1'),
+        document.getElementById('jstage2'),
+        document.getElementById('jstage3')
+      ];
+
+      const updateJourneyScroll = () => {
+        if (!journeySection || !journeyBeamFill) return;
+        const rect = journeySection.getBoundingClientRect();
+        const sectionH = rect.height;
+        const startOffset = window.innerHeight * 0.72;
+        const progress = Math.min(1, Math.max(0, (startOffset - rect.top) / (sectionH + startOffset * 0.25)));
+
+        const pct = Math.round(progress * 100);
+        journeyBeamFill.style.height = `${pct}%`;
+        if (telemetryPct) telemetryPct.textContent = `${pct}%`;
+
+        let currentStage = 0;
+        if (progress >= 0.7) {
+          currentStage = 2;
+          if (telemetryStageName) telemetryStageName.textContent = 'Stage 03: Autonomous Dispatch';
+          if (telemetryThroughput) telemetryThroughput.textContent = '4,850 ops/sec';
+          if (telemetryLatency) telemetryLatency.textContent = '12ms (Peak)';
+          if (telemetryHours) telemetryHours.textContent = '24 hrs / week';
+        } else if (progress >= 0.35) {
+          currentStage = 1;
+          if (telemetryStageName) telemetryStageName.textContent = 'Stage 02: Neural Engine Verified';
+          if (telemetryThroughput) telemetryThroughput.textContent = '2,420 ops/sec';
+          if (telemetryLatency) telemetryLatency.textContent = '28ms';
+          if (telemetryHours) telemetryHours.textContent = '14 hrs / week';
+        } else {
+          currentStage = 0;
+          if (telemetryStageName) telemetryStageName.textContent = 'Stage 01: Ingestion Active';
+          if (telemetryThroughput) telemetryThroughput.textContent = '1,120 ops/sec';
+          if (telemetryLatency) telemetryLatency.textContent = '18ms';
+          if (telemetryHours) telemetryHours.textContent = '6 hrs / week';
+        }
+
+        stageCards.forEach((card, idx) => {
+          if (!card) return;
+          card.classList.toggle('is-active-stage', idx <= currentStage);
+          // Apply layered depth classes to cards sitting underneath in the stack
+          card.classList.remove('card-layer-under-1', 'card-layer-under-2');
+          if (currentStage === 1 && idx === 0) {
+            card.classList.add('card-layer-under-1');
+          } else if (currentStage === 2) {
+            if (idx === 0) card.classList.add('card-layer-under-2');
+            if (idx === 1) card.classList.add('card-layer-under-1');
+          }
+        });
+      };
+
+      window.addEventListener('scroll', updateJourneyScroll, { passive: true });
+      updateJourneyScroll();
+
+      // Progressive Intersection Observer for gradual entry
+      const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+
+      gradualElements.forEach(el => scrollObserver.observe(el));
+
+      // 3. 3D HERO ROBOT PARALLAX & CLICK INTERACTION (EXACT PHOTO CHARACTER)
+      const robotStage = document.getElementById('robotStage');
+      const robotImageWrap = document.getElementById('robotImageWrap');
+      const speechBubble = document.getElementById('robotSpeechBubble');
+      const speechText = document.getElementById('speechText');
+
+      if (heroArt && robotStage && window.matchMedia('(pointer:fine)').matches) {
+        heroArt.addEventListener('pointermove', (e) => {
+          const rect = heroArt.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          robotStage.style.transform = `perspective(1000px) rotateX(${ -y * 18 }deg) rotateY(${ x * 22 }deg) translateZ(15px)`;
+        });
+
+        heroArt.addEventListener('pointerleave', () => {
+          robotStage.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+        });
+      }
+
+      const heroQuotes = [
+        "🚀 Repulsor lift at 100%! Ready to automate your workflows.",
+        "⚡ Fact: SIS automations save an average of 18 hours/week per teammate!",
+        "🎯 Found 3 manual spreadsheets that need intelligent automation!",
+        "💡 Listen to my live spoken quote in Section 03 below!",
+        "💬 Click 'Ask Spark' at the bottom right to chat with me anytime!"
+      ];
+      let heroQuoteIdx = 0;
+
+      if (robotStage) {
+        robotStage.addEventListener('click', () => {
+          heroQuoteIdx = (heroQuoteIdx + 1) % heroQuotes.length;
+          if (speechText) speechText.textContent = heroQuotes[heroQuoteIdx];
+          if (robotImageWrap) {
+            robotImageWrap.style.animation = 'none';
+            robotImageWrap.offsetHeight;
+            robotImageWrap.style.animation = 'robot-float 1.5s ease-in-out';
+          }
+        });
+      }
+
+      setInterval(() => {
+        heroQuoteIdx = (heroQuoteIdx + 1) % heroQuotes.length;
+        if (speechText) speechText.textContent = heroQuotes[heroQuoteIdx];
+      }, 6500);
+
+      // System Status Label cycling
+      const systemStatusLabel = document.getElementById('systemStatusLabel');
+      const systemStatusText = document.getElementById('systemStatusText');
+      const statusModes = [
+        "SYSTEM ONLINE · 100%",
+        "TURBO ENGINE · ACTIVE",
+        "NEURAL COGNITION · SYNCED"
+      ];
+      let statusModeIdx = 0;
+      if (systemStatusLabel && systemStatusText) {
+        systemStatusLabel.addEventListener('click', () => {
+          statusModeIdx = (statusModeIdx + 1) % statusModes.length;
+          systemStatusText.textContent = statusModes[statusModeIdx];
+        });
+        setInterval(() => {
+          statusModeIdx = (statusModeIdx + 1) % statusModes.length;
+          systemStatusText.textContent = statusModes[statusModeIdx];
+        }, 8000);
+      }
+
+      // 4. AUTONOMOUS WORKFLOW TRANSFORMER (SELF-RUNNING)
+      const tasksContainer = document.getElementById('tasksContainer');
+      const automatedContainer = document.getElementById('automatedContainer');
+      const pendingCountBadge = document.getElementById('pendingCountBadge');
+      const automatedCountBadge = document.getElementById('automatedCountBadge');
+      const automateAllBtn = document.getElementById('automateAllBtn');
+      const resetTasksBtn = document.getElementById('resetTasksBtn');
+
+      const initialTasks = [
+        { id: '1', title: 'Customer Email Triage', flow: 'Auto-categorized & drafted via AI in 0.2s' },
+        { id: '2', title: 'Manual Spreadsheet Sync', flow: 'Real-time two-way database webhooks' },
+        { id: '3', title: 'CRM Lead Data Entry', flow: 'AI agent enriches and logs automatically' },
+        { id: '4', title: 'Follow-up Reminders', flow: 'Smart multi-channel triggers sent on schedule' },
+        { id: '5', title: 'Invoice & Receipt Matching', flow: 'Optical extraction & Stripe reconciliation' },
+      ];
+
+      function updateCounts() {
+        const remaining = tasksContainer ? tasksContainer.children.length : 0;
+        const done = automatedContainer ? automatedContainer.children.length : 0;
+        if (pendingCountBadge) pendingCountBadge.textContent = `${remaining} Tasks Pending`;
+        if (automatedCountBadge) automatedCountBadge.textContent = `${done} Active Flows`;
+      }
+
+      function automateTask(chip: HTMLElement) {
+        if (!chip || !automatedContainer) return;
+        const id = chip.dataset.id;
+        const taskData = initialTasks.find(t => t.id === id);
+        chip.style.opacity = '0';
+        chip.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          chip.remove();
+          const item = document.createElement('div');
+          item.className = 'automated-task-item';
+          item.dataset.id = id;
+          item.innerHTML = `
+            <span>⚡ ${taskData ? taskData.title : 'Automated Workflow'}</span>
+            <span class="tag-done">✓ AUTOMATED</span>
+          `;
+          automatedContainer.appendChild(item);
+          updateCounts();
+        }, 200);
+      }
+
+      function resetTransformationBoard() {
+        if (!tasksContainer || !automatedContainer) return;
+        tasksContainer.innerHTML = '';
+        automatedContainer.innerHTML = '';
+        initialTasks.forEach(t => {
+          const chip = document.createElement('div');
+          chip.className = 'interactive-task-chip';
+          chip.dataset.id = t.id;
+          chip.innerHTML = `<span>${t.title}</span><span class="chip-action">Automating...</span>`;
+          tasksContainer.appendChild(chip);
+        });
+        updateCounts();
+      }
+
+      let userInteractedWithTasks = false;
+      let autoTransformTimer: any = null;
+
+      function runAutoTransformationLoop() {
+        if (userInteractedWithTasks) return;
+        if (tasksContainer && tasksContainer.children.length > 0) {
+          const nextChip = tasksContainer.querySelector('.interactive-task-chip') as HTMLElement;
+          if (nextChip) {
+            automateTask(nextChip);
+            autoTransformTimer = setTimeout(runAutoTransformationLoop, 1700);
+          }
+        } else {
+          autoTransformTimer = setTimeout(() => {
+            if (!userInteractedWithTasks) {
+              resetTransformationBoard();
+              autoTransformTimer = setTimeout(runAutoTransformationLoop, 1200);
+            }
+          }, 6000);
+        }
+      }
+
+      const whatWeDoSection = document.getElementById('what-we-do');
+      if (whatWeDoSection) {
+        const autoObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !userInteractedWithTasks && !autoTransformTimer) {
+              autoTransformTimer = setTimeout(runAutoTransformationLoop, 800);
+            }
+          });
+        }, { threshold: 0.25 });
+        autoObserver.observe(whatWeDoSection);
+      }
+
+      if (tasksContainer) {
+        tasksContainer.addEventListener('click', (e) => {
+          userInteractedWithTasks = true;
+          if (autoTransformTimer) clearTimeout(autoTransformTimer);
+          const chip = (e.target as HTMLElement).closest('.interactive-task-chip') as HTMLElement;
+          if (chip) automateTask(chip);
+        });
+      }
+
+      if (automateAllBtn) {
+        automateAllBtn.addEventListener('click', () => {
+          userInteractedWithTasks = true;
+          if (autoTransformTimer) clearTimeout(autoTransformTimer);
+          if (!tasksContainer) return;
+          const chips = Array.from(tasksContainer.querySelectorAll('.interactive-task-chip')) as HTMLElement[];
+          chips.forEach((chip, i) => {
+            setTimeout(() => automateTask(chip), i * 150);
+          });
+        });
+      }
+
+      if (resetTasksBtn) {
+        resetTasksBtn.addEventListener('click', () => {
+          userInteractedWithTasks = true;
+          if (autoTransformTimer) clearTimeout(autoTransformTimer);
+          resetTransformationBoard();
+        });
+      }
+
+      // 5. SERVICE 1: LIVE CHAT DEMO (AUTONOMOUS DEMO STREAM)
+      const demoChatHistory = document.getElementById('demoChatHistory');
+      const chatChips = document.querySelectorAll('.chat-quick-chips .chip-btn');
+
+      const chatScenarios = [
+        {
+          q: 'Track my shipment #9102',
+          a: '📦 Shipment #9102 is Out for Delivery via FedEx. Estimated delivery: today at 2:15 PM.'
+        },
+        {
+          q: 'Can SIS sync Stripe invoices to QuickBooks?',
+          a: '⚡ Automated daily sync is active! Invoices reconcile with zero manual data entry.'
+        },
+        {
+          q: 'How fast do AI responses execute?',
+          a: '🚀 Real-time execution in 0.12s with 99.8% precision across all connected channels.'
+        }
+      ];
+
+      let chatScenarioIdx = 0;
+      let userClickedChat = false;
+
+      function simulateChatQuery(question: string, answer: string) {
+        if (!demoChatHistory) return;
+        while (demoChatHistory.children.length > 3) {
+          demoChatHistory.removeChild(demoChatHistory.children[0]);
+        }
+
+        const userMsg = document.createElement('div');
+        userMsg.className = 'chat-msg msg-user';
+        userMsg.textContent = question;
+        demoChatHistory.appendChild(userMsg);
+        demoChatHistory.scrollTop = demoChatHistory.scrollHeight;
+
+        const typingMsg = document.createElement('div');
+        typingMsg.className = 'chat-msg msg-bot';
+        typingMsg.innerHTML = '<span>Spark is typing...</span>';
+        demoChatHistory.appendChild(typingMsg);
+
+        setTimeout(() => {
+          typingMsg.innerHTML = `<span>${answer}</span>`;
+          demoChatHistory.scrollTop = demoChatHistory.scrollHeight;
+        }, 550);
+      }
+
+      setInterval(() => {
+        if (!userClickedChat) {
+          const scenario = chatScenarios[chatScenarioIdx];
+          simulateChatQuery(scenario.q, scenario.a);
+          chatScenarioIdx = (chatScenarioIdx + 1) % chatScenarios.length;
+        }
+      }, 5500);
+
+      chatChips.forEach(btn => {
+        btn.addEventListener('click', () => {
+          userClickedChat = true;
+          const question = btn.getAttribute('data-chat');
+          if (question) {
+            const match = chatScenarios.find(s => s.q === question);
+            simulateChatQuery(question, match ? match.a : 'I can automate that right now!');
+          }
+        });
+      });
+
+      // 6. SERVICE 2: AUTONOMOUS CONTINUOUS PIPELINE SIMULATOR
+      const runPipelineBtn = document.getElementById('runPipelineBtn');
+      const pipelineLog = document.getElementById('pipelineLog');
+      const pNodes = [
+        document.getElementById('pn1'),
+        document.getElementById('pn2'),
+        document.getElementById('pn3'),
+        document.getElementById('pn4')
+      ];
+      const pConnectors = [
+        document.getElementById('pc1'),
+        document.getElementById('pc2'),
+        document.getElementById('pc3')
+      ];
+
+      let isPipelineRunning = false;
+
+      function runPipelineCycle() {
+        if (isPipelineRunning) return;
+        isPipelineRunning = true;
+
+        pNodes.forEach((n, i) => i !== 0 && n?.classList.remove('active'));
+        pConnectors.forEach(c => c?.classList.remove('flow-active'));
+
+        const steps = [
+          { text: '⚡ Webhook event received from intake form', delay: 350 },
+          { text: '🧠 AI parsed structured JSON payload', delay: 750 },
+          { text: '🔄 Synchronized customer record with Salesforce', delay: 1150 },
+          { text: '📢 Dispatched alert to #operations channel (194ms)', delay: 1550 },
+        ];
+
+        steps.forEach((step, i) => {
+          setTimeout(() => {
+            if (pipelineLog) pipelineLog.textContent = step.text;
+            if (pNodes[i]) pNodes[i]?.classList.add('active');
+            if (i > 0 && pConnectors[i - 1]) pConnectors[i - 1]?.classList.add('flow-active');
+
+            if (i === steps.length - 1) {
+              setTimeout(() => {
+                if (pipelineLog) pipelineLog.textContent = '✓ Pipeline completed in 194ms (Status: 200 OK)';
+                isPipelineRunning = false;
+              }, 600);
+            }
+          }, step.delay);
+        });
+      }
+
+      setInterval(runPipelineCycle, 4200);
+
+      if (runPipelineBtn) {
+        runPipelineBtn.addEventListener('click', () => {
+          runPipelineCycle();
+        });
+      }
+
+      // 7. SERVICE 3: SYSTEM INTEGRATIONS AUTO-PULSE
+      const integrationPills = document.querySelectorAll('.integration-pill');
+      const hubActiveCount = document.getElementById('hubActiveCount');
+      const hubEventsCount = document.getElementById('hubEventsCount');
+
+      let eventCounter = 2840;
+      setInterval(() => {
+        eventCounter += Math.floor(Math.random() * 8) + 1;
+        if (hubEventsCount) hubEventsCount.textContent = `● ${eventCounter.toLocaleString()} events/min`;
+
+        const randomIdx = Math.floor(Math.random() * integrationPills.length);
+        const pill = integrationPills[randomIdx] as HTMLElement;
+        if (pill) {
+          pill.style.transform = 'scale(1.1)';
+          setTimeout(() => { pill.style.transform = 'scale(1)'; }, 300);
+        }
+      }, 2500);
+
+      integrationPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          pill.classList.toggle('connected');
+          const connected = document.querySelectorAll('.integration-pill.connected').length;
+          if (hubActiveCount) {
+            hubActiveCount.textContent = `${connected} Systems Synchronized`;
+          }
+        });
+      });
+
+      // 8. TALKING ROBOT SECTION WITH SOUND ON/OFF & ONCE-PER-SESSION AUTO-PLAY
+      const quoteWordsContainer = document.getElementById('quoteWordsContainer');
+      const talkingMouth = document.getElementById('talkingMouth');
+      const talkingSoundwaves = document.getElementById('talkingSoundwaves');
+      const quoteStatusText = document.getElementById('quoteStatusText');
+      const quoteSubtext = document.getElementById('quoteSubtext');
+      const btnReplayQuote = document.getElementById('btnReplayQuote');
+      const btnNextQuote = document.getElementById('btnNextQuote');
+      const btnAudioToggle = document.getElementById('btnAudioToggle');
+      const audioToggleText = document.getElementById('audioToggleText');
+
+      const sparkQuotes = [
+        "The true power of AI automation is not doing less work — it is unlocking the capability to do what was once thought impossible.",
+        "When repetitive tasks run themselves, your people finally have the room to think, invent, and lead.",
+        "Every modern enterprise will eventually become an AI-orchestrated company. The only question is whether you architect your advantage today or scramble to catch up tomorrow."
+      ];
+
+      let currentQuoteIdx = 0;
+      let isQuoteSpeaking = false;
+      let quoteWordTimeout: any = null;
+      let audioEnabled = true;
+
+      // Web Audio Synthesizer with safe cross-browser audio context
+      let audioCtx: any = null;
+
+      function getOrCreateAudioContext() {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          if (AudioContextClass) {
+            audioCtx = new AudioContextClass();
+          }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playRobotSpeechTone(frequency = 540) {
+        if (!audioEnabled) return;
+        try {
+          const ctx = getOrCreateAudioContext();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(frequency + 70, ctx.currentTime + 0.08);
+
+          gain.gain.setValueAtTime(0.045, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.085);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.085);
+        } catch (e) {
+          // Audio policy safe
+        }
+      }
+
+      const phonemeClasses = ['phoneme-open', 'phoneme-wide', 'phoneme-round', 'phoneme-small'];
+
+      // Render static words when not animating
+      function renderQuoteStatic(index: number) {
+        if (!quoteWordsContainer) return;
+        const words = sparkQuotes[index].split(' ');
+        quoteWordsContainer.innerHTML = '';
+        words.forEach((w, i) => {
+          const span = document.createElement('span');
+          span.className = 'quote-word revealed';
+          span.id = `qword-${i}`;
+          span.textContent = w;
+          quoteWordsContainer.appendChild(span);
+        });
+        if (quoteStatusText) quoteStatusText.textContent = 'DIRECTIVE SYNCHRONIZED · READY';
+        if (quoteSubtext) quoteSubtext.textContent = `SYSTEM BROADCAST · DIRECTIVE 0${index + 1} OF 0${sparkQuotes.length}`;
+      }
+
+      function speakQuote(index: number) {
+        if (!quoteWordsContainer) return;
+        if (quoteWordTimeout) clearTimeout(quoteWordTimeout);
+
+        // Cancel previous speech if browser synthesis was speaking
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+
+        isQuoteSpeaking = true;
+        currentQuoteIdx = index;
+        const text = sparkQuotes[index];
+        const words = text.split(' ');
+
+        if (quoteStatusText) quoteStatusText.textContent = 'TRANSMITTING VOICE · LIVE';
+        if (quoteSubtext) quoteSubtext.textContent = `SYSTEM BROADCAST · DIRECTIVE 0${index + 1} OF 0${sparkQuotes.length}`;
+
+        // Prepare words
+        quoteWordsContainer.innerHTML = '';
+        words.forEach((w, i) => {
+          const span = document.createElement('span');
+          span.className = 'quote-word';
+          span.id = `qword-${i}`;
+          span.textContent = w;
+          quoteWordsContainer.appendChild(span);
+        });
+
+        if (talkingRobotWrap) {
+          talkingRobotWrap.classList.add('is-speaking');
+        }
+
+        let wordIdx = 0;
+
+        function stepWord() {
+          if (wordIdx < words.length) {
+            // Update previous word
+            if (wordIdx > 0) {
+              const prev = document.getElementById(`qword-${wordIdx - 1}`);
+              if (prev) {
+                prev.classList.remove('speaking-now');
+                prev.classList.add('revealed');
+              }
+            }
+
+            // Highlight current active word
+            const curr = document.getElementById(`qword-${wordIdx}`);
+            if (curr) {
+              curr.classList.add('speaking-now');
+            }
+
+            // Animate mouth synchronized with word
+            if (talkingMouth) {
+              talkingMouth.className = 'talking-mouth-overlay ' + phonemeClasses[wordIdx % phonemeClasses.length];
+            }
+
+            // Radiate soundwave pulse
+            if (talkingSoundwaves) {
+              talkingSoundwaves.classList.remove('pulse');
+              talkingSoundwaves.offsetHeight; // force reflow
+              talkingSoundwaves.classList.add('pulse');
+            }
+
+            // Natural simple talking head gestures on rig (image and mouth stay unified)
+            const talkingRobotRig = document.getElementById('talkingRobotRig');
+            if (talkingRobotRig) {
+              talkingRobotRig.style.transform = (wordIdx % 2 === 0)
+                ? 'translateY(-3px) rotate(-1.2deg)'
+                : 'translateY(1px) rotate(1deg)';
+            }
+
+            // Audio blip in sync
+            const pitch = 480 + ((wordIdx * 45) % 240);
+            playRobotSpeechTone(pitch);
+
+            wordIdx++;
+            const lastChar = words[wordIdx - 1]?.slice(-1);
+            const pause = (lastChar === '.' || lastChar === '—' || lastChar === ',') ? 340 : 175;
+            quoteWordTimeout = setTimeout(stepWord, pause);
+          } else {
+            // Finished speaking quote
+            if (wordIdx > 0) {
+              const last = document.getElementById(`qword-${wordIdx - 1}`);
+              if (last) {
+                last.classList.remove('speaking-now');
+                last.classList.add('revealed');
+              }
+            }
+            if (talkingMouth) {
+              talkingMouth.className = 'talking-mouth-overlay idle';
+            }
+            if (talkingRobotWrap) {
+              talkingRobotWrap.style.transform = 'scale(1) translateY(0px)';
+              talkingRobotWrap.classList.remove('is-speaking');
+            }
+            const talkingRobotRig = document.getElementById('talkingRobotRig');
+            if (talkingRobotRig) {
+              talkingRobotRig.style.transform = 'translateY(0) rotate(0deg)';
+            }
+            if (quoteStatusText) {
+              quoteStatusText.textContent = '✓ TRANSMISSION COMPLETE · READY';
+            }
+            isQuoteSpeaking = false;
+            // NOTE: DOES NOT auto-advance to next quote! Plays once per user directive.
+          }
+        }
+
+        stepWord();
+      }
+
+      // SESSION STORAGE RULE:
+      // Auto-plays ONE TIME when user gets on section for the first time opening browser.
+      // Cleared when user closes & reopens browser.
+      const QUOTE_SESSION_KEY = 'sis_spark_quote_session_played';
+      const quoteSection = document.getElementById('quote-section');
+
+      // Initialize with static quote visible immediately
+      renderQuoteStatic(0);
+
+      if (quoteSection) {
+        const quoteObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const hasPlayedThisSession = sessionStorage.getItem(QUOTE_SESSION_KEY);
+              if (!hasPlayedThisSession) {
+                // First time in this browser session! Play once.
+                sessionStorage.setItem(QUOTE_SESSION_KEY, 'true');
+                speakQuote(0);
+              }
+            }
+          });
+        }, { threshold: 0.22 });
+        quoteObserver.observe(quoteSection);
+      }
+
+      // Replay Quote Button (Always plays on demand)
+      if (btnReplayQuote) {
+        btnReplayQuote.addEventListener('click', () => {
+          speakQuote(currentQuoteIdx);
+        });
+      }
+
+      // Next Quote Button (Cycles and plays on demand)
+      if (btnNextQuote) {
+        btnNextQuote.addEventListener('click', () => {
+          const next = (currentQuoteIdx + 1) % sparkQuotes.length;
+          speakQuote(next);
+        });
+      }
+
+      // Sound On / Off Button - Instant response & audible feedback
+      if (btnAudioToggle) {
+        btnAudioToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          audioEnabled = !audioEnabled;
+          getOrCreateAudioContext();
+
+          if (audioEnabled) {
+            btnAudioToggle.className = 'btn-quote-control sound-active';
+            btnAudioToggle.innerHTML = '<span class="status-dot online" style="width:6px;height:6px;margin-right:2px;"></span> <span>Sound: ON</span>';
+            // Audible high-tech confirmation chime
+            playRobotSpeechTone(520);
+            setTimeout(() => playRobotSpeechTone(780), 90);
+          } else {
+            btnAudioToggle.className = 'btn-quote-control sound-muted';
+            btnAudioToggle.innerHTML = '<span>🔇 Sound: OFF</span>';
+            if ('speechSynthesis' in window) {
+              window.speechSynthesis.cancel();
+            }
+          }
+        });
+      }
+
+      // 9. ROI CALCULATOR WITH AUTONOMOUS PREVIEW
+      const teamSizeSlider = document.getElementById('teamSizeSlider') as HTMLInputElement;
+      const hoursSlider = document.getElementById('hoursSlider') as HTMLInputElement;
+      const rateSlider = document.getElementById('rateSlider') as HTMLInputElement;
+
+      const teamSizeVal = document.getElementById('teamSizeVal');
+      const hoursVal = document.getElementById('hoursVal');
+      const rateVal = document.getElementById('rateVal');
+
+      const calcHoursSaved = document.getElementById('calcHoursSaved');
+      const calcDollarSaved = document.getElementById('calcDollarSaved');
+      const calcRemarkText = document.getElementById('calcRemarkText');
+
+      function updateCalculator() {
+        if (!teamSizeSlider || !hoursSlider || !rateSlider) return;
+        const team = parseInt(teamSizeSlider.value, 10);
+        const hrs = parseInt(hoursSlider.value, 10);
+        const rate = parseInt(rateSlider.value, 10);
+
+        if (teamSizeVal) teamSizeVal.textContent = `${team} people`;
+        if (hoursVal) hoursVal.textContent = `${hrs} hrs/wk`;
+        if (rateVal) rateVal.textContent = `$${rate} / hr`;
+
+        const annualHours = Math.round(team * hrs * 50 * 0.72);
+        const annualDollars = Math.round(annualHours * rate);
+
+        if (calcHoursSaved) calcHoursSaved.textContent = `${annualHours.toLocaleString()} hrs`;
+        if (calcDollarSaved) calcDollarSaved.textContent = `$${annualDollars.toLocaleString()}`;
+
+        if (calcRemarkText) {
+          if (annualDollars > 150000) {
+            calcRemarkText.innerHTML = `🔥 <strong>Spark:</strong> "Incredible! Over $${annualDollars.toLocaleString()} in reclaimed productivity every year. Let's build your pipeline!"`;
+          } else {
+            calcRemarkText.innerHTML = `🚀 <strong>Spark:</strong> "That's ${annualHours.toLocaleString()} hours your team gets back every year for strategic projects!"`;
+          }
+        }
+      }
+
+      let userTouchedCalculator = false;
+      [teamSizeSlider, hoursSlider, rateSlider].forEach(slider => {
+        if (slider) {
+          slider.addEventListener('input', () => {
+            userTouchedCalculator = true;
+            updateCalculator();
+          });
+        }
+      });
+      updateCalculator();
+
+      const calcSection = document.getElementById('calculator');
+      if (calcSection) {
+        let calcAnimated = false;
+        const calcObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !calcAnimated && !userTouchedCalculator) {
+              calcAnimated = true;
+              let currentVal = 12;
+              const targetVal = 24;
+              const animTimer = setInterval(() => {
+                if (userTouchedCalculator) {
+                  clearInterval(animTimer);
+                  return;
+                }
+                currentVal += 1;
+                teamSizeSlider.value = currentVal.toString();
+                updateCalculator();
+                if (currentVal >= targetVal) clearInterval(animTimer);
+              }, 80);
+            }
+          });
+        }, { threshold: 0.3 });
+        calcObserver.observe(calcSection);
+      }
+
+      // 10. PROCESS TRACK (AUTONOMOUS STAGE ADVANCEMENT)
+      const processStepsElements = document.querySelectorAll('.process-step');
+      const mascotGuideText = document.getElementById('mascotGuideText');
+      const processProgressBar = document.getElementById('processProgressBar');
+      const processTrack = document.getElementById('processTrack');
+
+      let currentProcessIdx = 0;
+      let processHovered = false;
+
+      function setProcessStep(index: number) {
+        currentProcessIdx = index;
+        processStepsElements.forEach((s, idx) => {
+          s.classList.toggle('active-step', idx === index);
+        });
+        const activeEl = processStepsElements[index];
+        const tip = activeEl ? activeEl.getAttribute('data-tip') : '';
+        if (mascotGuideText && tip) {
+          mascotGuideText.innerHTML = `<strong>Phase 0${index + 1} Guidance:</strong> ${tip}`;
+        }
+        if (processProgressBar) {
+          processProgressBar.style.transform = `scaleX(${(index + 1) / processStepsElements.length})`;
+        }
+      }
+
+      setInterval(() => {
+        if (!processHovered) {
+          const nextIdx = (currentProcessIdx + 1) % processStepsElements.length;
+          setProcessStep(nextIdx);
+        }
+      }, 3800);
+
+      if (processTrack) {
+        processTrack.addEventListener('pointerenter', () => { processHovered = true; });
+        processTrack.addEventListener('pointerleave', () => { processHovered = false; });
+      }
+
+      processStepsElements.forEach((el, index) => {
+        el.addEventListener('click', () => {
+          setProcessStep(index);
+        });
+      });
+
+      // 11. CONSULTATION FORM
+      const consultationForm = document.getElementById('consultationForm');
+      const formSuccessMsg = document.getElementById('formSuccessMsg');
+      const formTags = document.querySelectorAll('.form-tag');
+
+      formTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+          formTags.forEach(t => t.classList.remove('active'));
+          tag.classList.add('active');
+        });
+      });
+
+      if (consultationForm) {
+        consultationForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById('formSubmitBtn');
+          if (submitBtn) {
+            submitBtn.textContent = 'Transmitting Blueprint Request...';
+            setTimeout(() => {
+              consultationForm.reset();
+              submitBtn.style.display = 'none';
+              if (formSuccessMsg) formSuccessMsg.style.display = 'block';
+            }, 600);
+          }
+        });
+      }
+
+      // 12. FLOATING ROBOT COPILOT CHATBOT
+      const copilotLauncher = document.getElementById('copilotLauncher');
+      const copilotWindow = document.getElementById('copilotWindow');
+      const copilotCloseBtn = document.getElementById('copilotCloseBtn');
+      const copilotForm = document.getElementById('copilotForm');
+      const copilotInput = document.getElementById('copilotInput') as HTMLInputElement;
+      const copilotMessages = document.getElementById('copilotMessages');
+      const copilotChips = document.querySelectorAll('.copilot-chip');
+
+      const copilotKnowledge: Record<string, string> = {
+        'What tools can you integrate with?': 'We integrate with any modern system with an API or webhook: Slack, Salesforce, HubSpot, Stripe, Notion, PostgreSQL, Zendesk, Jira, and custom ERPs.',
+        'How fast can we launch an agent?': 'Most single-process agents deploy within 7–14 days. Complex multi-system pipelines usually go live in 3 to 4 weeks.',
+        'How does pricing work?': 'We work on transparent project-based blueprints with optional monthly maintenance & optimization SLAs. No hidden surprise compute fees.',
+        'default': 'Great question! Spark can configure custom autonomous workflows for your exact use case. Fill out the consultation form below or email hello@sis.agency for a personalized roadmap!'
+      };
+
+      if (copilotLauncher && copilotWindow) {
+        copilotLauncher.addEventListener('click', () => {
+          copilotWindow.classList.toggle('hidden');
+          if (!copilotWindow.classList.contains('hidden') && copilotInput) {
+            copilotInput.focus();
+          }
+        });
+      }
+
+      if (copilotCloseBtn && copilotWindow) {
+        copilotCloseBtn.addEventListener('click', () => {
+          copilotWindow.classList.add('hidden');
+        });
+      }
+
+      function addCopilotMessage(sender: 'user' | 'bot', text: string) {
+        if (!copilotMessages) return;
+        const msg = document.createElement('div');
+        msg.className = `chat-msg msg-${sender}`;
+        msg.innerHTML = `<span>${text}</span>`;
+        copilotMessages.appendChild(msg);
+        copilotMessages.scrollTop = copilotMessages.scrollHeight;
+      }
+
+      copilotChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const q = chip.getAttribute('data-q');
+          if (!q) return;
+          addCopilotMessage('user', q);
+          setTimeout(() => {
+            addCopilotMessage('bot', copilotKnowledge[q] || copilotKnowledge['default']);
+          }, 400);
+        });
+      });
+
+      if (copilotForm && copilotInput) {
+        copilotForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const q = copilotInput.value.trim();
+          if (!q) return;
+          addCopilotMessage('user', q);
+          copilotInput.value = '';
+
+          setTimeout(() => {
+            const matchedKey = Object.keys(copilotKnowledge).find(k =>
+              q.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(q.toLowerCase())
+            );
+            addCopilotMessage('bot', matchedKey ? copilotKnowledge[matchedKey] : copilotKnowledge['default']);
+          }, 450);
+        });
+      }
+
+      // 6. FOOTER NEWSLETTER FORM SUBMISSION
+      const footerNewsletterForm = document.getElementById('footerNewsletterForm');
+      const newsletterSuccess = document.getElementById('newsletterSuccess');
+      if (footerNewsletterForm) {
+        footerNewsletterForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const emailInput = document.getElementById('newsletterEmail') as HTMLInputElement | null;
+          if (emailInput && emailInput.value) {
+            emailInput.value = '';
+            if (newsletterSuccess) {
+              newsletterSuccess.style.display = 'block';
+              setTimeout(() => {
+                if (newsletterSuccess) newsletterSuccess.style.display = 'none';
+              }, 4000);
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
