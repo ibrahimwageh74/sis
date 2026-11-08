@@ -1,0 +1,899 @@
+---
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import Robot3D from '../components/Robot3D.astro';
+
+const navLinks = [
+  { href: '#system', s: 'system', label: 'Systems' },
+  { href: '#services', s: 'services', label: 'Services' },
+  { href: '#process', s: 'process', label: 'Process' },
+  { href: '#quote-section', s: 'quote-section', label: 'Perspective' },
+  { href: '#calculator', s: 'calculator', label: 'ROI' },
+];
+
+const layers = [
+  { k: 'Layer 01', t: 'Data', io: 'Sources', p: 'Every message, record, file and event the business already produces, gathered from the places it lives today.', i: 'Raw sources', o: 'Structured data', tags: ['Messages', 'Documents', 'Spreadsheets', 'CRM records', 'Forms'] },
+  { k: 'Layer 02', t: 'Context', io: 'Meaning', p: 'Data is tied to meaning: who the customer is, what happened before, which rules and policies apply.', i: 'Structured data', o: 'Context', tags: ['Customer history', 'Knowledge base', 'Policies', 'Permissions'] },
+  { k: 'Layer 03', t: 'Intelligence', io: 'Decisions', p: 'AI reads intent, weighs the context around it and decides what should happen next.', i: 'Context', o: 'Decisions', tags: ['Intent', 'Reasoning', 'Classification', 'Drafting'] },
+  { k: 'Layer 04', t: 'Automation', io: 'Workflows', p: 'Decisions become workflows with business logic, approvals, hand-offs and fallbacks built in.', i: 'Decisions', o: 'Workflows', tags: ['Triggers', 'Rules', 'Approvals', 'Hand-offs'] },
+  { k: 'Layer 05', t: 'Action', io: 'Outcomes', p: 'The system acts in your tools: it replies, updates records, notifies people and executes tasks.', i: 'Workflows', o: 'Outcomes', tags: ['Reply', 'Update', 'Notify', 'Execute'] },
+];
+
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>';
+
+const services = [
+  {
+    v: '2', tag: 'Build', title: 'Customized AI Systems',
+    desc: 'We build AI that fits your business — not the other way around.',
+    caps: ['AI Agents', 'Intelligent Assistants', 'Business Automation', 'Customer Support', 'Integrations'],
+    end: 'Every piece tailored. Everything connected.',
+    icon: '<svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="10" y="10" width="24" height="24"/><rect x="18" y="18" width="8" height="8"/><path d="M16 4v6M22 4v6M28 4v6M16 34v6M22 34v6M28 34v6M4 16h6M4 22h6M4 28h6M34 16h6M34 22h6M34 28h6"/></svg>',
+  },
+  {
+    v: '3', tag: 'Map', title: 'Consultation',
+    desc: "Clarity before code. We help you understand where AI fits in your business — and where it doesn't. Clear direction. Confident decisions.",
+    icon: '<svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="19" cy="19" r="12"/><path d="M28 28l12 12M13 19h12M19 13v12"/></svg>',
+  },
+  {
+    v: '1', tag: 'Teach', title: 'Education Solutions',
+    desc: "Practical training shaped around your team's real work and tools — so it shows up every day, not just on day one.",
+    icon: '<svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M22 8L4 17l18 9 18-9-18-9zM10 21v9c0 3 6 6 12 6s12-3 12-6v-9M40 17v12"/></svg>',
+  },
+];
+
+const stages = [
+  { t: 'Understand', d: 'Understand the business.' },
+  { t: 'Map', d: 'Map processes, information and bottlenecks.' },
+  { t: 'Design', d: 'Design the intelligent system.' },
+  { t: 'Build', d: 'Build and integrate the system.' },
+  { t: 'Optimize', d: 'Measure, improve and evolve.' },
+];
+
+const mailto =
+  'mailto:hello@sis.ai?subject=SIS%20inquiry&body=Hello%20SIS%2C%0A%0AI%27d%20like%20to%20discuss%20an%20intelligent%20system%20for%20my%20business.%0A%0ABusiness%3A%0AWhat%20should%20stop%20being%20manual%3A%0A';
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#D6D8DE" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="SIS — Smart Integration Systems designs intelligent systems that connect AI, business data, communication and operations into one coordinated infrastructure. AI systems, education and consultation." />
+    <title>SIS — Smart Integration Systems</title>
+    <link rel="icon" type="image/svg+xml" href="/sis-icon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SIS — Smart Integration Systems" />
+    <meta property="og:title" content="SIS — Smart Integration Systems" />
+    <meta property="og:description" content="Your business. Reengineered by intelligence. Intelligent systems that connect AI, data, communication and operations." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Theme bootstrap: runs before first paint to prevent a flash of the wrong theme -->
+    <script is:inline>
+      (function () {
+        var t = 'light';
+        try { var s = localStorage.getItem('sis-theme'); if (s === 'light' || s === 'dark') t = s; } catch (e) {}
+        var r = document.documentElement;
+        r.setAttribute('data-theme', t);
+        r.classList.add('js');
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', t === 'light' ? '#D6D8DE' : '#202124');
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="top-scroll-progress" id="topScrollProgress"></div>
+
+    <div class="site-shell">
+      <!-- HEADER -->
+      <header class="nav-wrap" id="nav">
+        <div class="wrap nav-in">
+          <a class="brand" href="#top" aria-label="SIS — Smart Integration Systems, home">
+            <Logo />
+          </a>
+          <nav class="nav-links" aria-label="Main navigation">
+            {navLinks.map((l) => <a href={l.href} data-s={l.s}>{l.label}</a>)}
+          </nav>
+          <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
+              <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+              <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+            </button>
+            <a class="btn btn-primary nav-cta" href="#contact">Start a System</a>
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mMenu"><span></span></button>
+          </div>
+        </div>
+      </header>
+      <nav class="m-menu" id="mMenu" aria-label="Mobile navigation">
+        <a href="#system">Systems <span>01</span></a>
+        <a href="#services">Services <span>02</span></a>
+        <a href="#process">Process <span>03</span></a>
+        <a href="#quote-section">Perspective <span>04</span></a>
+        <a href="#calculator">ROI <span>05</span></a>
+        <a href="#contact">Contact <span>06</span></a>
+        <a href="#contact" class="btn btn-primary">Start a System</a>
+      </nav>
+
+      <main id="main">
+        <!-- HERO -->
+        <section class="hero" id="top" aria-labelledby="hero-h">
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <div class="hero-label mono">Intelligence / Systems / Automation</div>
+              <h1 id="hero-h">
+                <span class="h-l">Your business.</span>
+                <span class="h-l">Reengineered</span>
+                <span class="h-l">by <em>intelligence.</em></span>
+              </h1>
+              <p class="hero-sub">
+                SIS designs intelligent systems that connect AI, business data, communication and operations into one coordinated infrastructure.
+              </p>
+              <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary-on-red">Build Your System <Fragment set:html={arrow} /></a>
+                <a href="#system" class="btn btn-ghost-on-red">Explore SIS</a>
+              </div>
+              <div class="hero-status mono" aria-label="System status">
+                <span><i></i>System status — <b>Ready</b></span>
+                <span><i></i>Intelligence layer — <b>Active</b></span>
+                <span><i></i>Automation — <b>Available</b></span>
+              </div>
+            </div>
+
+            <div class="hero-art" id="heroArt" aria-label="Spark, the SIS robot mascot">
+              <div class="orbit orbit-one"></div>
+              <div class="orbit orbit-two"></div>
+              <div class="orbit orbit-three"></div>
+              <div class="hero-grid"></div>
+
+              <div class="floating-label label-top" id="systemStatusLabel" title="Click to cycle status">
+                <span class="status-dot"></span> <span id="systemStatusText">ENTITY SIS-01 · ONLINE</span>
+              </div>
+
+              <Robot3D />
+
+              <div class="floating-label label-bottom">
+                <span class="mini-bars"><i></i><i></i><i></i></span>
+                <span>SIS system · Online</span>
+              </div>
+            </div>
+          </div>
+
+          <a class="scroll-cue" href="#problem"><span class="scroll-wheel"></span> SCROLL TO EXPLORE</a>
+        </section>
+
+        <!-- 01 PROBLEM -->
+        <section class="section problem" id="problem" aria-labelledby="problem-h">
+          <div class="p-stage">
+            <div class="wrap p-inner">
+              <div class="p-head">
+                <h2 id="problem-h"><b>01</b>Business doesn't need more tools.</h2>
+                <p>It needs systems that work together.</p>
+              </div>
+              <div class="p-field" id="pField" aria-label="Diagram: nine disconnected business tools being connected into one intelligent system as you scroll">
+                <svg id="pLines" aria-hidden="true"></svg>
+                <div id="pNodes"></div>
+                <div class="p-hub" id="pHub"><span>INTELLI&shy;GENCE<br />LAYER</span></div>
+              </div>
+              <div class="p-steps mono" id="pSteps">
+                <div class="on"><span>Fragmented</span></div>
+                <div><span>Connected</span></div>
+                <div><span>Intelligent</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 SYSTEM -->
+        <section class="section" id="system" aria-labelledby="system-h">
+          <div class="wrap">
+            <div class="sec-tag mono rv"><b>02</b> The architecture <i></i> 5 layers</div>
+            <div class="sec-head rv">
+              <h2 id="system-h">The SIS <em>System</em></h2>
+              <p>Five layers, one continuous infrastructure. Select a layer to see what it does and how it connects to the rest.</p>
+            </div>
+            <div class="sys rv">
+              <div class="layers has-active" id="layers" role="tablist" aria-label="SIS system layers" aria-orientation="vertical">
+                <div class="spine" aria-hidden="true"><div class="spine-lit" id="spineLit"></div><div class="spine-dot"></div><div class="spine-dot"></div></div>
+                {layers.map((l, i) => (
+                  <button class={`layer${i === 0 ? ' active' : ''}`} role="tab" data-i={i} aria-selected={i === 0 ? 'true' : 'false'}>
+                    <span class="layer-n">{String(i + 1).padStart(2, '0')}</span>
+                    <span><span class="mono">{l.k}</span><h3>{l.t}</h3></span>
+                    <span class="layer-io">{l.io}</span>
+                  </button>
+                ))}
+              </div>
+              <aside class="layer-panel" id="layerPanel" aria-live="polite">
+                <span class="mono" id="lpKicker">Layer 01</span>
+                <h3 id="lpTitle">Data</h3>
+                <p id="lpText">{layers[0].p}</p>
+                <div class="lp-flow">
+                  <div><span class="mono">In</span><b id="lpIn">Raw sources</b></div>
+                  <svg viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg>
+                  <div><span class="mono">Out</span><b id="lpOut">Structured data</b></div>
+                </div>
+                <ul class="lp-tags" id="lpTags"></ul>
+              </aside>
+            </div>
+            <script type="application/json" id="layerData" set:html={JSON.stringify(layers)} />
+          </div>
+        </section>
+
+        <!-- 03 SERVICES -->
+        <section class="section services" id="services" aria-labelledby="services-h">
+          <div class="svc-track" id="svcTrack">
+            <div class="svc-sticky">
+              <div class="wrap">
+                <div class="svc-head">
+                  <div class="sec-tag mono"><b>03</b> Services <i></i> <span class="svc-count" id="svcCount">01 / 03</span></div>
+                  <h2 id="services-h">The Three <em>Core Services</em></h2>
+                </div>
+                <div class="svc-stack" id="svcStack">
+                  {services.map((s, i) => (
+                    <article class="scard" data-v={s.v} aria-labelledby={`svc${i + 1}`}>
+                      <div class="scard-copy">
+                        <span class="mono">{s.tag}</span>
+                        <h3 id={`svc${i + 1}`}>{s.title}</h3>
+                        <p>{s.desc}</p>
+                        {s.caps && (
+                          <ul class="cap-list" aria-label="Capabilities">
+                            {s.caps.map((c) => <li>{c}</li>)}
+                          </ul>
+                        )}
+                        {s.end && <p class="scard-end">{s.end}</p>}
+                        <a class="btn btn-ghost" href="#contact">Discuss this <Fragment set:html={arrow} /></a>
+                      </div>
+                      <div class="scard-vis" aria-hidden="true" set:html={s.icon}></div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 PROCESS -->
+        <section class="section" id="process" aria-labelledby="process-h">
+          <div class="wrap">
+            <div class="sec-tag mono rv"><b>04</b> How SIS thinks <i></i> continuous loop</div>
+            <div class="think rv">
+              <div>
+                <h2 id="process-h">We don't automate tasks.<span>We engineer systems.</span></h2>
+                <div class="stages" id="stages">
+                  {stages.map((s, i) => (
+                    <button class={`stage${i === 0 ? ' active' : ''}`} data-i={i}>
+                      <span class="mono">{String(i + 1).padStart(2, '0')}</span>
+                      <b>{s.t}</b>
+                      <span class="d">{s.d}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div class="loop" id="loop">
+                <svg viewBox="0 0 560 560" aria-hidden="true">
+                  <circle class="l-ring-a" cx="280" cy="280" r="200" fill="none" />
+                  <circle class="l-ring-b" cx="280" cy="280" r="228" fill="none" stroke-dasharray="2 6" />
+                  <circle class="l-ring-c" cx="280" cy="280" r="172" fill="none" />
+                  <path id="loopArc" fill="none" stroke-width="2.4" />
+                  <g id="loopTicks"></g>
+                  <circle id="loopDot" r="5" />
+                  <g id="loopNodes"></g>
+                </svg>
+                <div class="loop-core"><span class="mono" id="loopNum">Stage 01 / 05</span><b id="loopName">Understand</b><span class="mono">Then again</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AGENT PERSPECTIVE -->
+        <section class="section quote-section" id="quote-section" aria-labelledby="quote-h">
+          <div class="wrap">
+            <div class="sec-tag mono rv"><b>—</b> Agent perspective <i></i> Spark · SIS-01</div>
+            <div class="sec-head rv">
+              <h2 id="quote-h">In the words of <em>our AI architect.</em></h2>
+              <p>Listen as Spark shares how SIS thinks about intelligent systems and the businesses that run on them.</p>
+            </div>
+
+            <div class="quote-layout">
+              <div class="quote-robot-stage rv">
+                <div class="talking-robot-wrap" id="talkingRobotWrap">
+                  <div class="talking-robot-rig" id="talkingRobotRig">
+                    <Robot3D showInterface={false} />
+                    
+                    <div class="talking-soundwaves" id="talkingSoundwaves"></div>
+                  </div>
+                </div>
+                <div class="robot-repulsor" aria-hidden="true" style="bottom: 45px;">
+                  <div class="repulsor-ring ring-1"></div>
+                  <div class="repulsor-ring ring-2"></div>
+                </div>
+              </div>
+
+              <div class="quote-card rv">
+                <div class="quote-mark" aria-hidden="true">“</div>
+                <div class="quote-words-container" id="quoteWordsContainer" aria-live="polite"></div>
+                <div class="quote-author-row">
+                  <div class="quote-author-info">
+                    <strong>Spark · SIS AI Systems Architect</strong>
+                    <span class="mono" id="quoteSubtext">System broadcast · Directive 01 of 03</span>
+                    <span class="mono" id="quoteStatusText">System ready</span>
+                  </div>
+                  <div class="quote-controls">
+                    <button class="btn-quote-control" id="btnReplayQuote" type="button" title="Replay current quote">↺ Replay</button>
+                    <button class="btn-quote-control" id="btnNextQuote" type="button" title="Next quote">⏭ Next</button>
+                    <button class="btn-quote-control sound-active" id="btnAudioToggle" type="button" title="Toggle sound">Sound: ON</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROI CALCULATOR -->
+        <section class="section calculator-section" id="calculator" aria-labelledby="calc-h">
+          <div class="wrap">
+            <div class="sec-tag mono rv"><b>—</b> Impact estimator <i></i> Egypt market · EGP</div>
+            <div class="sec-head rv">
+              <h2 id="calc-h">Calculate your <em>automation ROI.</em></h2>
+              <p>Adjust the sliders to estimate what your team could put back into work that matters.</p>
+            </div>
+
+            <div class="calc-wrap">
+              <div class="calc-sliders rv">
+                <div class="calc-group">
+                  <div class="calc-label-row"><label for="teamSizeSlider">Team size (knowledge workers)</label><span class="calc-val" id="teamSizeVal">12 people</span></div>
+                  <input type="range" min="1" max="100" value="12" class="calc-slider" id="teamSizeSlider" />
+                </div>
+                <div class="calc-group">
+                  <div class="calc-label-row"><label for="hoursSlider">Weekly manual hours per person</label><span class="calc-val" id="hoursVal">6 hrs/wk</span></div>
+                  <input type="range" min="1" max="35" value="6" class="calc-slider" id="hoursSlider" />
+                </div>
+                <div class="calc-group">
+                  <div class="calc-label-row"><label for="rateSlider">Average monthly salary (EGP)</label><span class="calc-val" id="rateVal">EGP 12,000</span></div>
+                  <input type="range" min="7000" max="50000" value="12000" step="500" class="calc-slider" id="rateSlider" />
+                </div>
+                <p class="calc-note">Illustrative Egypt-market estimate. Assumes 70% automation potential,
+                 50 working weeks per year, and an estimated 18.75% employer social
+                 insurance contribution. Actual results depend on the business,
+                 employee roles and processes.
+                </p>
+              </div>
+
+              <div class="calc-results-card rv">
+                <div class="calc-stat-grid">
+                  <div class="calc-stat-block"><span class="mono">Hours saved / year</span><span class="calc-stat-number" id="calcHoursSaved">2,520 hrs</span></div>
+                  <div class="calc-stat-block"><span class="mono">Annual savings</span><span class="calc-stat-number highlight" id="calcDollarSaved">EGP 172,644</span></div>
+                  <div class="calc-stat-block"><span class="mono">Hours back / week</span><span class="calc-stat-number" id="calcWeekly">50 hrs</span></div>
+                  <div class="calc-stat-block"><span class="mono">Per person / year</span><span class="calc-stat-number" id="calcPerPerson">210 hrs</span></div>
+                </div>
+                <div class="calc-robot-remark">
+                  <div class="calc-robot-3d">
+                  <Robot3D showInterface={false} compact />
+                  </div>
+                  <div id="calcRemarkText">
+                  <strong>Spark:</strong>  "That's 2,520 hours your team could put back into strategic work every year."
+                  </div>
+                </div>
+                <a class="btn btn-primary" href="#contact">Reclaim these hours <Fragment set:html={arrow} /></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 05 CONTACT -->
+        <section class="contact" id="contact" aria-labelledby="cta-h">
+          <div class="wrap">
+            <div class="contact-panel rv">
+              <div class="contact-copy">
+                <span class="mono">05 / Next stage</span>
+                <h2 id="cta-h">What should your business stop <em>doing manually?</em></h2>
+                <p class="lead">Tell us about the work, information and decisions that slow your team down. We'll show you what can become an intelligent system.</p>
+                <div class="hero-cta">
+                  <a class="btn btn-primary-on-red" href={mailto}>Start a Conversation <Fragment set:html={arrow} /></a>
+                  <a class="btn btn-ghost-on-red" href="#system">Explore Our Systems</a>
+                </div>
+                <div class="cta-mail">
+                  <span class="mono">Or write to</span>
+                  <code id="mailText">hello@sis.ai</code>
+                  <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+                </div>
+              </div>
+              <div class="contact-mascot-side">
+                <Robot3D />
+                <div class="contact-robot-bubble">Let's build what actually fits <span>✦</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <div class="wrap footer-main">
+          <div class="footer-grid">
+            <div class="footer-col-brand">
+              <a class="brand" href="#top" aria-label="SIS home"><Logo /></a>
+              <span class="footer-name">Smart Integration Systems</span>
+              <p class="footer-tagline">Intelligence, engineered into the business.</p>
+              <div class="footer-status-pill"><i></i><span>SIS system · Online</span></div>
+            </div>
+            <nav aria-label="Footer navigation">
+              <h4 class="footer-heading">Navigate</h4>
+              <ul class="footer-links">
+                <li><a href="#system">Systems</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#quote-section">Perspective</a></li>
+                <li><a href="#calculator">ROI Estimator</a></li>
+              </ul>
+            </nav>
+            <div>
+              <h4 class="footer-heading">Services</h4>
+              <ul class="footer-links">
+                <li><a href="#services">Customized AI Systems</a></li>
+                <li><a href="#services">Consultation</a></li>
+                <li><a href="#services">Education Solutions</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="footer-heading">Contact</h4>
+              <ul class="footer-links">
+                <li><a href="mailto:hello@sis.ai">hello@sis.ai</a></li>
+                <li><a href="#contact">Start a Conversation</a></li>
+                <li><a href="#" aria-label="LinkedIn (placeholder link)">LinkedIn</a></li>
+                <li><a href="#" aria-label="X (placeholder link)">X</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="wrap footer-bottom-inner">
+            <span class="mono">© <span id="year">2026</span> SIS — Smart Integration Systems</span>
+            <a href="#top" class="back-to-top-btn" aria-label="Back to top"><span>Back to top</span><span>↑</span></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // @ts-nocheck
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+      const root = document.documentElement;
+
+      /* one shared, rAF-throttled scroll scheduler */
+      const jobs = [];
+      let ticking = false;
+      const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => { jobs.forEach((f) => f()); ticking = false; });
+      };
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', onScroll);
+
+      /* ---------- theme toggle ---------- */
+      (function theme() {
+        const btn = $('#themeToggle'), meta = $('meta[name="theme-color"]');
+        if (!btn) return;
+        const COLORS = { dark: '#202124', light: '#D6D8DE' };
+        const label = (t) => {
+          const txt = t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+          btn.setAttribute('aria-label', txt); btn.setAttribute('title', txt);
+        };
+        label(root.getAttribute('data-theme'));
+        btn.addEventListener('click', () => {
+          const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', next);
+          if (meta) meta.setAttribute('content', COLORS[next]);
+          label(next);
+          try { localStorage.setItem('sis-theme', next); } catch (_) {}
+        });
+      })();
+
+      /* ---------- header, progress bar, hero parallax ---------- */
+      const nav = $('#nav'), menuBtn = $('#menuBtn'), mMenu = $('#mMenu');
+      const bar = $('#topScrollProgress'), heroArt = $('#heroArt');
+      const sectionIds = ['problem', 'system', 'services', 'process', 'quote-section', 'calculator', 'contact'];
+      const sectionEls = sectionIds.map((id) => document.getElementById(id));
+      const navLinkEls = $$('.nav-links [data-s]');
+      jobs.push(() => {
+        nav.classList.toggle('scrolled', scrollY > 16);
+        const max = document.documentElement.scrollHeight - innerHeight;
+        if (bar) bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+        if (heroArt && !reduce && scrollY < innerHeight) heroArt.style.transform = `translateY(${scrollY * 0.08}px)`;
+        const mid = innerHeight * 0.4;
+        let cur = null;
+        sectionEls.forEach((s) => { if (!s) return; const r = s.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) cur = s.id; });
+        navLinkEls.forEach((a) => a.classList.toggle('active', a.dataset.s === cur));
+      });
+
+      function setMenu(open) {
+        document.body.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      }
+      menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+      $$('a', mMenu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
+      addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); } });
+      addEventListener('resize', () => { if (innerWidth > 1020) setMenu(false); });
+
+      /* ---------- reveal on scroll ---------- */
+      (function reveal() {
+        const items = $$('.rv');
+        const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.1 });
+        items.forEach((el) => { if (el.getBoundingClientRect().top < innerHeight * 0.95) el.classList.add('in'); else io.observe(el); });
+      })();
+
+      /* ---------- hero: status label ---------- */
+      (function hero() {
+        const lab = $('#systemStatusLabel'), txt = $('#systemStatusText');
+        const modes = ['ENTITY SIS-01 · ONLINE', 'MODE · OBSERVE', 'INTELLIGENCE LAYER · ACTIVE'];
+        let mi = 0;
+        const cycle = () => { mi = (mi + 1) % modes.length; if (txt) txt.textContent = modes[mi]; };
+        if (lab) lab.addEventListener('click', cycle);
+        if (!reduce) setInterval(cycle, 8000);
+      })();
+
+      /* ---------- 01 problem: fragmented -> connected -> intelligent ---------- */
+      (function problem() {
+        const sec = $('#problem'), field = $('#pField'), svg = $('#pLines'), host = $('#pNodes'), hub = $('#pHub');
+        if (!sec) return;
+        const names = ['Interactions', 'Conversations', 'Spreadsheets', 'Documents', 'CRM', 'Processes', 'Employees', 'Platforms', 'Software'];
+        const scat = [[.12, .2, -4], [.42, .12, 3], [.8, .2, -2], [.22, .56, 5], [.64, .5, -3], [.9, .64, 2], [.1, .86, -2], [.46, .84, 4], [.8, .88, -5]];
+        const NS = 'http://www.w3.org/2000/svg';
+        const nodes = names.map((n) => { const el = document.createElement('div'); el.className = 'p-node'; el.textContent = n; host.appendChild(el); return { el, w: 0, h: 0 }; });
+        const hubLines = names.map(() => { const l = document.createElementNS(NS, 'line'); l.setAttribute('pathLength', '1'); l.style.stroke = 'var(--red)'; l.setAttribute('stroke-width', '1'); l.style.strokeDasharray = '1'; svg.appendChild(l); return l; });
+        const pairs = [[0, 3], [1, 4], [2, 5], [3, 7], [4, 8], [6, 7], [0, 6], [2, 4]];
+        const noise = pairs.map(() => { const l = document.createElementNS(NS, 'line'); l.style.stroke = 'var(--muted-2)'; l.setAttribute('stroke-dasharray', '3 6'); svg.appendChild(l); return l; });
+        const steps = $$('#pSteps div');
+        let W = 0, H = 0, lastP = -1, hubHalf = 64;
+        function measure() {
+          W = field.clientWidth; H = field.clientHeight;
+          svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+          nodes.forEach((n) => { n.w = n.el.offsetWidth; n.h = n.el.offsetHeight; });
+          hubHalf = hub.offsetWidth / 2 + 19;
+          lastP = -1; update();
+        }
+        function update() {
+          const r = sec.getBoundingClientRect(), total = r.height - innerHeight;
+          const p = total > 40 ? clamp(-r.top / total, 0, 1) : 1;
+          if (Math.abs(p - lastP) < 0.0015) return; lastP = p;
+          const m = ease(clamp((p - 0.1) / 0.5, 0, 1)), draw = clamp((p - 0.4) / 0.25, 0, 1);
+          const rx = Math.min(W * 0.36, 380), ry = H * 0.34;
+          const pos = nodes.map((n, i) => {
+            const s = scat[i], a = (i / names.length) * Math.PI * 2 - Math.PI / 2;
+            const jit = (1 - m) * (Math.sin(p * 40 + i * 2) * 3);
+            const x = lerp(s[0] * W, W / 2 + Math.cos(a) * rx, m) + jit, y = lerp(s[1] * H, H / 2 + Math.sin(a) * ry, m) + jit * 0.6;
+            n.el.style.transform = `translate(${x - n.w / 2}px,${y - n.h / 2}px) rotate(${lerp(s[2], 0, m)}deg)`;
+            n.el.classList.toggle('on', p > 0.6);
+            return [x, y];
+          });
+          hubLines.forEach((l, i) => {
+            const dx = pos[i][0] - W / 2, dy = pos[i][1] - H / 2, k = hubHalf / Math.max(Math.abs(dx), Math.abs(dy), 1);
+            l.setAttribute('x1', pos[i][0]); l.setAttribute('y1', pos[i][1]); l.setAttribute('x2', W / 2 + dx * k); l.setAttribute('y2', H / 2 + dy * k);
+            l.style.strokeDashoffset = String(1 - clamp(draw * 1.3 - i * 0.03, 0, 1));
+            l.setAttribute('stroke-opacity', String(0.35 + 0.5 * clamp((p - 0.7) / 0.2, 0, 1)));
+          });
+          noise.forEach((l, k) => {
+            const a = pos[pairs[k][0]], b = pos[pairs[k][1]];
+            l.setAttribute('x1', a[0]); l.setAttribute('y1', a[1]); l.setAttribute('x2', b[0]); l.setAttribute('y2', b[1]);
+            l.setAttribute('stroke-opacity', String(0.6 * (1 - clamp(p / 0.4, 0, 1))));
+          });
+          hub.classList.toggle('on', p > 0.68);
+          const st = p < 0.34 ? 0 : p < 0.68 ? 1 : 2;
+          steps.forEach((s, i) => s.classList.toggle('on', i === st));
+        }
+        jobs.push(update);
+        addEventListener('resize', measure);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+        measure();
+      })();
+
+      /* ---------- 02 system: interactive layers ---------- */
+      (function layers() {
+        const wrap = $('#layers'), dataEl = $('#layerData'); if (!wrap || !dataEl) return;
+        const data = JSON.parse(dataEl.textContent);
+        const btns = $$('.layer', wrap), lit = $('#spineLit'), panel = $('#layerPanel');
+        let cur = -1, lastScroll = 0;
+        addEventListener('scroll', () => { lastScroll = Date.now(); }, { passive: true });
+        function set(i, focus) {
+          if (i === cur) return; cur = i;
+          btns.forEach((b, k) => { b.classList.toggle('active', k === i); b.setAttribute('aria-selected', String(k === i)); b.tabIndex = k === i ? 0 : -1; });
+          const b = btns[i];
+          lit.style.height = Math.max(0, b.offsetTop + b.offsetHeight / 2 - 40) + 'px';
+          const d = data[i];
+          $('#lpKicker').textContent = d.k; $('#lpTitle').textContent = d.t; $('#lpText').textContent = d.p;
+          $('#lpIn').textContent = d.i; $('#lpOut').textContent = d.o;
+          $('#lpTags').innerHTML = d.tags.map((t) => `<li>${t}</li>`).join('');
+          panel.classList.remove('lp-fade'); void panel.offsetWidth; panel.classList.add('lp-fade');
+          if (focus) b.focus();
+        }
+        btns.forEach((b, i) => {
+          b.addEventListener('click', () => set(i));
+          b.addEventListener('focus', () => set(i));
+          if (fine) b.addEventListener('pointermove', (e) => { if (Date.now() - lastScroll < 300 || (!e.movementX && !e.movementY)) return; set(i); });
+          b.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); set((i + 1) % 5, true); }
+            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); set((i + 4) % 5, true); }
+          });
+        });
+        addEventListener('resize', () => { const c = cur; cur = -1; set(c < 0 ? 0 : c); });
+        set(0);
+      })();
+
+      /* ---------- 03 services: stacked scroll cards ---------- */
+      (function services() {
+        const sec = $('#services'), track = $('#svcTrack'); if (!sec) return;
+        const cards = $$('.scard', track), n = cards.length, count = $('#svcCount');
+        const mq = matchMedia('(max-width: 900px), (max-height: 640px), (prefers-reduced-motion: reduce)');
+        let active = -1, stacked = false;
+        const pad = (v) => String(v).padStart(2, '0');
+        const shape = (p) => { const i = Math.floor(p), f = p - i; return i + (f < 0.12 ? 0 : f > 0.88 ? 1 : ease((f - 0.12) / 0.76)); };
+        function setActive(a) {
+          if (a === active) return; active = a;
+          cards.forEach((c, i) => { c.toggleAttribute('inert', stacked && i !== a); c.classList.toggle('is-active', i === a); });
+          count.textContent = `${pad(a + 1)} / ${pad(n)}`;
+        }
+        function clear() { cards.forEach((c) => { c.style.transform = ''; c.style.opacity = ''; c.style.filter = ''; c.style.zIndex = ''; c.removeAttribute('inert'); }); }
+        function mode() {
+          const want = !mq.matches;
+          if (want === stacked) return;
+          stacked = want; sec.classList.toggle('stacked', stacked); active = -1;
+          if (!stacked) { clear(); count.textContent = `01 / ${pad(n)}`; } else update();
+        }
+        function update() {
+          if (!stacked) return;
+          const r = track.getBoundingClientRect(), total = r.height - innerHeight;
+          const raw = total > 40 ? clamp(-r.top / total, 0, 1) * (n - 1) : 0;
+          const p = shape(raw);
+          cards.forEach((c, i) => {
+            const t = p - i; let y, s, o, dim;
+            if (t < 0) { const u = clamp(-t, 0, 1); y = ease(u) * 112; s = 1; o = 1; dim = 1; }
+            else { y = -t * 26; s = 1 - t * 0.045; o = clamp(1 - t * 0.3, 0.25, 1); dim = clamp(1 - t * 0.3, 0.45, 1); }
+            c.style.transform = `translate3d(0,${y.toFixed(2)}${t < 0 ? '%' : 'px'},0) scale(${s.toFixed(4)})`;
+            c.style.opacity = o.toFixed(3);
+            c.style.filter = dim < 1 ? `brightness(${dim.toFixed(3)})` : '';
+            c.style.zIndex = String(i + 1);
+          });
+          setActive(clamp(Math.round(p), 0, n - 1));
+        }
+        mq.addEventListener ? mq.addEventListener('change', mode) : mq.addListener(mode);
+        jobs.push(update);
+        addEventListener('resize', () => { mode(); update(); });
+        mode();
+        if (!stacked) setActive(0);
+      })();
+
+      /* ---------- 04 process: continuous loop ---------- */
+      (function loop() {
+        const el = $('#loop'); if (!el) return;
+        const NS = 'http://www.w3.org/2000/svg', C = 280, R = 200;
+        const names = ['Understand', 'Map', 'Design', 'Build', 'Optimize'];
+        const gNodes = $('#loopNodes'), arc = $('#loopArc'), dot = $('#loopDot'), ticks = $('#loopTicks');
+        const stageBtns = $$('#stages .stage');
+        const pt = (deg, r = R) => [C + r * Math.cos((deg * Math.PI) / 180), C + r * Math.sin((deg * Math.PI) / 180)];
+        for (let d = 0; d < 360; d += 5) {
+          const a = pt(d, 228), b = pt(d, d % 30 === 0 ? 244 : 236);
+          const l = document.createElementNS(NS, 'line');
+          l.setAttribute('x1', a[0]); l.setAttribute('y1', a[1]); l.setAttribute('x2', b[0]); l.setAttribute('y2', b[1]);
+          ticks.appendChild(l);
+        }
+        const nodeEls = names.map((n, i) => {
+          const [x, y] = pt(-90 + 72 * i);
+          const g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'l-node'); g.setAttribute('transform', `translate(${x},${y})`);
+          g.innerHTML = `<rect x="-52" y="-15" width="104" height="30"/><text y="4">${n.toUpperCase()}</text>`;
+          g.addEventListener('click', () => choose(i));
+          gNodes.appendChild(g); return g;
+        });
+        let t = 0, active = -1, hold = 0, inView = false, last = 0;
+        function show(i) {
+          if (i === active) return; active = i;
+          stageBtns.forEach((b, k) => b.classList.toggle('active', k === i));
+          nodeEls.forEach((g, k) => g.classList.toggle('active', k === i));
+          $('#loopNum').textContent = `Stage 0${i + 1} / 05`; $('#loopName').textContent = names[i];
+        }
+        function draw() {
+          const deg = -90 + 360 * t, [x, y] = pt(deg);
+          dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+          const [sx, sy] = pt(-90), large = t > 0.5 ? 1 : 0;
+          arc.setAttribute('d', t < 0.002 ? '' : `M${sx} ${sy} A${R} ${R} 0 ${large} 1 ${x} ${y}`);
+          show(Math.round(t * 5) % 5);
+        }
+        function choose(i) { t = i / 5; hold = performance.now() + 6000; draw(); }
+        stageBtns.forEach((b, i) => {
+          b.addEventListener('click', () => choose(i));
+          b.addEventListener('focus', () => choose(i));
+          if (fine) b.addEventListener('pointerenter', () => choose(i));
+        });
+        function frame(now) {
+          if (!inView) return;
+          const dt = Math.min(now - last, 60); last = now;
+          if (now > hold) { t = (t + dt / 22000) % 1; draw(); }
+          requestAnimationFrame(frame);
+        }
+        new IntersectionObserver((es) => { inView = es[0].isIntersecting; if (inView && !reduce) { last = performance.now(); requestAnimationFrame(frame); } }, { threshold: 0.1 }).observe(el);
+        draw();
+      })();
+
+      /* ---------- agent perspective: talking robot ---------- */
+      (function perspective() {
+        const words = $('#quoteWordsContainer'), mouth = $('#talkingMouth'), waves = $('#talkingSoundwaves');
+        const wrap = $('#talkingRobotWrap'), rig = $('#talkingRobotRig');
+        const statusText = $('#quoteStatusText'), sub = $('#quoteSubtext');
+        const btnReplay = $('#btnReplayQuote'), btnNext = $('#btnNextQuote'), btnAudio = $('#btnAudioToggle');
+        if (!words) return;
+        const quotes = [
+          "We don't chase what's new. We build what actually fits.",
+          "Business doesn't need more tools. It needs systems that work together.",
+          "We don't automate tasks. We engineer systems — intelligence, built into the way your business already works.",
+        ];
+        let cur = 0, timer = null, audioOn = true, ctx = null;
+        const phonemes = ['phoneme-open', 'phoneme-wide', 'phoneme-round', 'phoneme-small'];
+        const label = (i) => `System broadcast · Directive 0${i + 1} of 0${quotes.length}`;
+
+        function audio() {
+          if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) ctx = new C(); }
+          if (ctx && ctx.state === 'suspended') ctx.resume();
+          return ctx;
+        }
+        function tone(f) {
+          if (!audioOn) return;
+          try {
+            const c = audio(); if (!c) return;
+            const o = c.createOscillator(), g = c.createGain();
+            o.type = 'sine'; o.frequency.setValueAtTime(f, c.currentTime); o.frequency.exponentialRampToValueAtTime(f + 70, c.currentTime + 0.08);
+            g.gain.setValueAtTime(0.045, c.currentTime); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.085);
+            o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + 0.085);
+          } catch (_) {}
+        }
+        function renderStatic(i) {
+          words.innerHTML = '';
+          quotes[i].split(' ').forEach((w, k) => { const s = document.createElement('span'); s.className = 'quote-word revealed'; s.id = `qword-${k}`; s.textContent = w; words.appendChild(s); });
+          statusText.textContent = 'Directive synchronized · Ready'; sub.textContent = label(i);
+        }
+        function speak(i) {
+          if (timer) clearTimeout(timer);
+          cur = i;
+          const list = quotes[i].split(' ');
+          statusText.textContent = 'Transmitting voice · Live'; sub.textContent = label(i);
+          words.innerHTML = '';
+          list.forEach((w, k) => { const s = document.createElement('span'); s.className = 'quote-word'; s.id = `qword-${k}`; s.textContent = w; words.appendChild(s); });
+          if (wrap) wrap.classList.add('is-speaking');
+          let idx = 0;
+          function step() {
+            if (idx < list.length) {
+              if (idx > 0) { const p = $(`#qword-${idx - 1}`); if (p) { p.classList.remove('speaking-now'); p.classList.add('revealed'); } }
+              const c = $(`#qword-${idx}`); if (c) c.classList.add('speaking-now');
+              if (mouth) mouth.className = 'talking-mouth-overlay ' + phonemes[idx % phonemes.length];
+              if (waves) { waves.classList.remove('pulse'); void waves.offsetHeight; waves.classList.add('pulse'); }
+              if (rig) rig.style.transform = idx % 2 === 0 ? 'translateY(-3px) rotate(-1.2deg)' : 'translateY(1px) rotate(1deg)';
+              tone(480 + ((idx * 45) % 240));
+              idx++;
+              const lc = list[idx - 1].slice(-1);
+              timer = setTimeout(step, lc === '.' || lc === '—' || lc === ',' ? 340 : 175);
+            } else {
+              const l = $(`#qword-${idx - 1}`); if (l) { l.classList.remove('speaking-now'); l.classList.add('revealed'); }
+              if (mouth) mouth.className = 'talking-mouth-overlay idle';
+              if (wrap) wrap.classList.remove('is-speaking');
+              if (rig) rig.style.transform = 'translateY(0) rotate(0)';
+              statusText.textContent = '✓ Transmission complete · Ready';
+            }
+          }
+          step();
+        }
+
+        renderStatic(0);
+        const KEY = 'sis_spark_quote_played', section = $('#quote-section');
+        if (section && !reduce) {
+          new IntersectionObserver((es, o) => {
+            if (!es[0].isIntersecting) return;
+            let played = false;
+            try { played = !!sessionStorage.getItem(KEY); sessionStorage.setItem(KEY, '1'); } catch (_) {}
+            if (!played) speak(0);
+            o.disconnect();
+          }, { threshold: 0.3 }).observe(section);
+        }
+        btnReplay.addEventListener('click', () => speak(cur));
+        btnNext.addEventListener('click', () => speak((cur + 1) % quotes.length));
+        btnAudio.addEventListener('click', () => {
+          audioOn = !audioOn; audio();
+          if (audioOn) { btnAudio.className = 'btn-quote-control sound-active'; btnAudio.textContent = 'Sound: ON'; tone(520); setTimeout(() => tone(780), 90); }
+          else { btnAudio.className = 'btn-quote-control sound-muted'; btnAudio.textContent = 'Sound: OFF'; }
+        });
+      })();
+
+
+      /* ---------- ROI calculator ---------- */
+      (function calculator() {
+        const team = $('#teamSizeSlider');
+        const hrs = $('#hoursSlider');
+        const salary = $('#rateSlider');
+
+        if (!team || !hrs || !salary) return;
+
+        const employerContribution = 0.1875;
+        const monthlyWorkingHours = 208;
+        const workingWeeks = 50;
+        const automationRate = 0.70;
+
+        const egp = (value) =>
+          `EGP ${Math.round(value).toLocaleString('en-US')}`;
+
+        function update() {
+          const t = Number(team.value);
+          const h = Number(hrs.value);
+          const monthlySalary = Number(salary.value);
+
+          const hourlyCost =
+            (monthlySalary * (1 + employerContribution)) /
+            monthlyWorkingHours;
+
+          const weeklyHoursSaved = t * h * automationRate;
+          const annualHoursSaved =
+            Math.round(weeklyHoursSaved * workingWeeks);
+
+          const annualCapacityValue =
+            annualHoursSaved * hourlyCost;
+
+          const perPersonHours =
+            Math.round(annualHoursSaved / t);
+
+          $('#teamSizeVal').textContent =
+            `${t} ${t === 1 ? 'person' : 'people'}`;
+
+          $('#hoursVal').textContent = `${h} hrs/wk`;
+          $('#rateVal').textContent = egp(monthlySalary);
+
+          $('#calcHoursSaved').textContent =
+            `${annualHoursSaved.toLocaleString('en-US')} hrs`;
+
+          $('#calcDollarSaved').textContent =
+            egp(annualCapacityValue);
+
+          $('#calcWeekly').textContent =
+            `${Math.round(weeklyHoursSaved).toLocaleString('en-US')} hrs`;
+
+          $('#calcPerPerson').textContent =
+            `${perPersonHours.toLocaleString('en-US')} hrs`;
+
+          $('#calcRemarkText').innerHTML =
+            `<strong>Spark:</strong> "Your team could recover approximately ` +
+            `${annualHoursSaved.toLocaleString('en-US')} working hours annually, ` +
+            `representing ${egp(annualCapacityValue)} in potential capacity value."`;
+        }
+
+        [team, hrs, salary].forEach((slider) => {
+          slider.addEventListener('input', update);
+        });
+
+        update();
+      })();
+
+      /* ---------- copy email + footer year ---------- */
+      (function misc() {
+        const btn = $('#copyBtn'), txt = $('#mailText');
+        if (btn) btn.addEventListener('click', async () => {
+          let ok = false;
+          try { await navigator.clipboard.writeText(txt.textContent); ok = true; } catch (_) {
+            const r = document.createRange(); r.selectNodeContents(txt);
+            const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+          }
+          btn.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+          setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+        });
+        const y = $('#year'); if (y) y.textContent = String(new Date().getFullYear());
+      })();
+
+      onScroll();
+    </script>
+  </body>
+</html>
